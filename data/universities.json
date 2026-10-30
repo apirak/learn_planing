@@ -1,0 +1,1445 @@
+{
+ "fetched_at": "2026-10-30T08:10:52+00:00",
+ "source": "https://my-tcas.s3.ap-southeast-1.amazonaws.com/mytcas/universities.json",
+ "count": 92,
+ "data": [
+  {
+   "_id": "6183b148ee214bbbe863301d",
+   "university_id": "001",
+   "university_type": "1",
+   "university_name": "จุฬาลงกรณ์มหาวิทยาลัย",
+   "university_name_en": "Chulalongkorn University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe863301e",
+   "university_id": "002",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยเกษตรศาสตร์",
+   "university_name_en": "Kasetsart University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe863301f",
+   "university_id": "003",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยขอนแก่น",
+   "university_name_en": "Khon Kaen University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe8633020",
+   "university_id": "004",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยเชียงใหม่",
+   "university_name_en": "Chiang mai University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/004/pdf/1792983380479/รอบ 1 ข้อมูล ณ วันที่ 261069.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe8633021",
+   "university_id": "005",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยธรรมศาสตร์",
+   "university_name_en": "Thammasat University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe8633022",
+   "university_id": "006",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยมหิดล",
+   "university_name_en": "Mahidol University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe8633023",
+   "university_id": "008",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยศิลปากร",
+   "university_name_en": "Silpakorn University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_3": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/008/pdf/1792129792958/3. ประกาศฯ รอบ 3 Admission 2570-ver ทปอ..pdf",
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/008/pdf/1792636840074/1. เกณฑ์ฯ รอบ 1 ช่วง 2 2570 ver. ทปอ 21 ตค 69.pdf",
+   "file_path_2": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/008/pdf/1792145799908/2. ประกาศเกณฑ์รอบ 2 โควตา ver. ทปอ 16102569.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe8633024",
+   "university_id": "009",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยศรีนครินทรวิโรฒ",
+   "university_name_en": "Srinakharinwirot University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/009/pdf/1788849422675/(SWU)TCAS70_1.1 ประกาศรับสมัคร.pdf",
+   "rounds_with_data": [
+    1
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe8633025",
+   "university_id": "010",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยสงขลานครินทร์",
+   "university_name_en": "Prince of Songkla University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe8633026",
+   "university_id": "013",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยแม่โจ้",
+   "university_name_en": "Maejo University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/013/pdf/1788432074097/TCAS รอบที่ 1.1 Portfolio.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe8633027",
+   "university_id": "014",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี",
+   "university_name_en": "King Mongkut’s University of Technology Thonburi",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe8633028",
+   "university_id": "015",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ",
+   "university_name_en": "King Mongkut’s University of Technology North Bangkok",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe8633029",
+   "university_id": "016",
+   "university_type": "1",
+   "university_name": "สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง",
+   "university_name_en": "King Mongkut’s Institute of Technology Ladkrabang",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/016/pdf/1791964627058/2570_1_news1_4670_2026_10_08-18-44-04_6302c.pdf",
+   "file_path_2": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/016/pdf/1791964702475/2570_1_news1_4670_2026_10_08-18-44-04_6302c.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe863302a",
+   "university_id": "017",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยเทคโนโลยีสุรนารี",
+   "university_name_en": "Suranaree University of Technology",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/017/pdf/1789444429373/มทส-รวมประกาศรับสมัคร-150969.pdf",
+   "rounds_with_data": [
+    1
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe863302b",
+   "university_id": "018",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยอุบลราชธานี",
+   "university_name_en": "Ubon Ratchathani University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe863302c",
+   "university_id": "019",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยบูรพา",
+   "university_name_en": "Burapha University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/019/pdf/1789115978828/มหาวิทยาลัยบูรพา TCAS 1.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe863302d",
+   "university_id": "020",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยนเรศวร",
+   "university_name_en": "Naresuan University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/020/pdf/1788147395202/020_calendar_tcas1.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe863302e",
+   "university_id": "021",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยมหาสารคาม",
+   "university_name_en": "Mahasarakham University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe863302f",
+   "university_id": "022",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยทักษิณ",
+   "university_name_en": "Thaksin University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe8633030",
+   "university_id": "023",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยวลัยลักษณ์",
+   "university_name_en": "Walailak University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/023/pdf/1783778231779/รายละเอียดการรับสมัคร TCAS ประจำปี 2570.pdf",
+   "file_path_2": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/023/pdf/1783778243408/รายละเอียดการรับสมัคร TCAS ประจำปี 2570.pdf",
+   "file_path_3": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/023/pdf/1783778250503/รายละเอียดการรับสมัคร TCAS ประจำปี 2570.pdf",
+   "file_path_4": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/023/pdf/1783778257194/รายละเอียดการรับสมัคร TCAS ประจำปี 2570.pdf",
+   "rounds_with_data": [
+    1
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe8633031",
+   "university_id": "024",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยแม่ฟ้าหลวง",
+   "university_name_en": "Mae Fah Luang University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe8633032",
+   "university_id": "025",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยนราธิวาสราชนครินทร์",
+   "university_name_en": "Princess of Naradhiwas University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe8633033",
+   "university_id": "026",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยนครพนม",
+   "university_name_en": "Nakhon Phanom University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe8633034",
+   "university_id": "027",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยพะเยา",
+   "university_name_en": "University of Phayao",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/027/pdf/1792144268538/ประกาศรับสมัครนักเรียนเข้าศึกษาโครงการรับตรงมหาวิทยาลัยพะเยา.pdf",
+   "file_path_2": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/027/pdf/1792144325389/ประกาศรับสมัคร TCAS2.pdf",
+   "file_path_3": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/027/pdf/1792144361460/19-ประกาศรับสมัครบุคคลเข้าศึกษา(Admission).pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe8633035",
+   "university_id": "028",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยกาฬสินธุ์",
+   "university_name_en": "Kalasin University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633070",
+   "university_id": "031",
+   "university_type": "5",
+   "university_name": "กลุ่มสถาบันแพทยศาสตร์แห่งประเทศไทย",
+   "university_name_en": "Consortium of Thai Medical Schools",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": []
+  },
+  {
+   "_id": "6183b148ee214bbbe8633036",
+   "university_id": "032",
+   "university_type": "1",
+   "university_name": "ราชวิทยาลัยจุฬาภรณ์",
+   "university_name_en": "Chulabhorn Royal Academy of Science",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe8633037",
+   "university_id": "034",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยรามคำแหง",
+   "university_name_en": "Ramkhamhaeng University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/034/pdf/1785828217354/TCAS-70.pdf",
+   "file_path_2": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/034/pdf/1785828229002/TCAS-70.pdf",
+   "file_path_3": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/034/pdf/1785828238270/TCAS-70.pdf",
+   "file_path_4": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/034/pdf/1785828244998/TCAS-70.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b148ee214bbbe8633038",
+   "university_id": "035",
+   "university_type": "1",
+   "university_name": "สถาบันเทคโนโลยีจิตรลดา",
+   "university_name_en": "Chitralada Technology Institute",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/035/pdf/1788314998055/01_2570_ประกาศการรับสมัครนักศึกษา ระดับปริญญาตรีฯ TCAS  ปีการศึกษา 2570v.reg.pdf",
+   "file_path_2": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/035/pdf/1788315063936/01_2570_ประกาศการรับสมัครนักศึกษา ระดับปริญญาตรีฯ TCAS  ปีการศึกษา 2570v.reg.pdf",
+   "file_path_3": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/035/pdf/1788315438123/01_2570_ประกาศการรับสมัครนักศึกษา ระดับปริญญาตรีฯ TCAS  ปีการศึกษา 2570v.reg.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633039",
+   "university_id": "036",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยมหามกุฏราชวิทยาลัย",
+   "university_name_en": "Mahamakut Buddhist University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "633d938a27c06f6930d75fb4",
+   "university_id": "037",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+   "university_name_en": "Mahachulalongkornrajavidyalaya University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": []
+  },
+  {
+   "_id": "68db8af22df1734cb9cd36c4",
+   "university_id": "051",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยกรุงเทพ",
+   "university_name_en": "Bangkok University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": []
+  },
+  {
+   "_id": "6183b149ee214bbbe8633057",
+   "university_id": "054",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยศรีปทุม",
+   "university_name_en": "Sripatum University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/054/pdf/1785737413904/SPU_TCAS70_รอบ 1 Portfolio.pdf",
+   "file_path_2": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/054/pdf/1785737664707/SPU_TCAS70_รอบ 2_Quota.pdf",
+   "file_path_3": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/054/pdf/1785737760297/SPU_TCAS70_รอบ 3_Admission.pdf",
+   "file_path_4": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/054/pdf/1785737983612/SPU_TCAS70_รอบ 4_Direct Admission.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633058",
+   "university_id": "056",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยหอการค้าไทย",
+   "university_name_en": "University of the Thai Chamber of Commerce",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": null,
+   "rounds_with_data": [
+    1,
+    3
+   ]
+  },
+  {
+   "_id": "68db8ac52df1734cb9cd36c3",
+   "university_id": "059",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยคริสเตียน",
+   "university_name_en": "Christian University of Thailand",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633059",
+   "university_id": "061",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยเทคโนโลยีมหานคร",
+   "university_name_en": "Mahanakorn University of Technology",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": []
+  },
+  {
+   "_id": "6183b149ee214bbbe863305a",
+   "university_id": "068",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยรังสิต",
+   "university_name_en": "Rangsit University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe863305b",
+   "university_id": "073",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยหัวเฉียวเฉลิมพระเกียรติ",
+   "university_name_en": "Huachiew Chalermprakiet University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": []
+  },
+  {
+   "_id": "6a99290e55603be35663a74e",
+   "university_id": "101",
+   "university_type": "3",
+   "university_name": "มหาวิทยาลัยชินวัตร",
+   "university_name_en": "Shinawatra University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": []
+  },
+  {
+   "_id": "6183b149ee214bbbe863305c",
+   "university_id": "102",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยเวสเทิร์น",
+   "university_name_en": "Western University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe863305d",
+   "university_id": "103",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยธุรกิจบัณฑิตย์",
+   "university_name_en": "Dhurakij Pundit University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/103/pdf/1783761011765/ข้อมูลการรับสมัคร Portfolio.pdf",
+   "file_path_2": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/103/pdf/1783761570928/ข้อมูลการรับสมัคร Quota.pdf",
+   "file_path_3": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/103/pdf/1783761913325/ข้อมูลการรับสมัคร Admission.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe863305e",
+   "university_id": "110",
+   "university_type": "4",
+   "university_name": "วิทยาลัยสันตพล",
+   "university_name_en": "Santapol College",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": []
+  },
+  {
+   "_id": "6183b149ee214bbbe863305f",
+   "university_id": "112",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยอีสเทิร์นเอเชีย",
+   "university_name_en": "Eastern Asia University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633061",
+   "university_id": "115",
+   "university_type": "4",
+   "university_name": "วิทยาลัยเซนต์หลุยส์",
+   "university_name_en": "Saint Louis College",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/115/pdf/1792051579905/รอบ1 Portfolio70.png",
+   "file_path_2": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/115/pdf/1792051622096/รอบ2 Quota70.png",
+   "file_path_3": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/115/pdf/1792051642281/รอบ3 Admission70.png",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633062",
+   "university_id": "117",
+   "university_type": "4",
+   "university_name": "วิทยาลัยดุสิตธานี",
+   "university_name_en": "Dusit Thani College",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_3": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/117/pdf/1788257663141/AW_TCAS70.pdf",
+   "rounds_with_data": [
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633063",
+   "university_id": "129",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยนานาชาติเอเชีย-แปซิฟิก",
+   "university_name_en": "Asia-Pacific International University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633064",
+   "university_id": "130",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยหาดใหญ่",
+   "university_name_en": "Hatyai University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/130/pdf/1784040551041/เอกสารแนบ.pdf",
+   "file_path_2": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/130/pdf/1784040570373/เอกสารแนบ.pdf",
+   "file_path_3": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/130/pdf/1784040579868/เอกสารแนบ.pdf",
+   "file_path_4": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/130/pdf/1784040607552/เอกสารแนบ.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "63451a8f27c06f69307351e1",
+   "university_id": "142",
+   "university_name": "มหาวิทยาลัยราชภัฏชัยภูมิ",
+   "university_name_en": "Chaiyaphum Rajabhat University",
+   "university_type": "2",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": []
+  },
+  {
+   "_id": "6183b149ee214bbbe863303e",
+   "university_id": "144",
+   "university_type": "2",
+   "university_name": "มหาวิทยาลัยราชภัฏเชียงใหม่",
+   "university_name_en": "ChiangMai Rajabhat University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": []
+  },
+  {
+   "_id": "66f46cc8729feee8fccca188",
+   "university_id": "146",
+   "university_type": "2",
+   "university_name": "มหาวิทยาลัยราชภัฏธนบุรี",
+   "university_name_en": "Dhonburi Rajabhat University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe863303f",
+   "university_id": "148",
+   "university_type": "2",
+   "university_name": "มหาวิทยาลัยราชภัฏนครราชสีมา",
+   "university_name_en": "Nakhon Ratchasima Rajabhat University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/148/pdf/1792125017054/R701_condition2ent_4y [111069].pdf",
+   "file_path_2": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/148/pdf/1792294257149/R702_How2Ent_v2.pdf",
+   "file_path_3": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/148/pdf/1792294272075/R703_How2Ent_v2.pdf",
+   "file_path_4": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/148/pdf/1792294284285/R704_How2Ent_v1.pdf",
+   "file_path_handicap": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/148/pdf/1792294296758/DSS70_How2Ent_v1.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633041",
+   "university_id": "150",
+   "university_type": "2",
+   "university_name": "มหาวิทยาลัยราชภัฏพระนคร",
+   "university_name_en": "Phranakhon Rajabhat University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/150/pdf/1791783463044/สาขาที่เปิดรับรอบ Portfolio.pdf",
+   "file_path_2": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/150/pdf/1791783503441/สาขาที่เปิดรับรอบ โควตา.pdf",
+   "file_path_3": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/150/pdf/1791783752794/สาขาที่เปิดรับรอบ Admission.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633043",
+   "university_id": "152",
+   "university_type": "2",
+   "university_name": "มหาวิทยาลัยราชภัฏพิบูลสงคราม",
+   "university_name_en": "Pibulsongkram Rajabhat University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/152/pdf/1791967501266/1. ประกาศรับสมัคร รอบที่ 1 การรับด้วยแฟ้มสะสมผลงาน (Portfolio 1.1) 2570.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633044",
+   "university_id": "153",
+   "university_type": "2",
+   "university_name": "มหาวิทยาลัยราชภัฏวไลยอลงกรณ์ ในพระบรมราชูปถัมภ์",
+   "university_name_en": "Valaya Alongkorn Rajabhat University under the Royal Patronage",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/153/pdf/1784779396471/คณมนุษยศาสตร์และสังคมศาสตร์ ปี 70.pdf",
+   "file_path_2": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/153/pdf/1784779412249/คณมนุษยศาสตร์และสังคมศาสตร์ ปี 70.pdf",
+   "file_path_3": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/153/pdf/1784779425314/คณมนุษยศาสตร์และสังคมศาสตร์ ปี 70.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "66f46c67729feee8fccc9a5c",
+   "university_id": "158",
+   "university_type": "2",
+   "university_name": "มหาวิทยาลัยราชภัฏร้อยเอ็ด",
+   "university_name_en": "Roi Et Rajabhat University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": []
+  },
+  {
+   "_id": "6183b149ee214bbbe8633046",
+   "university_id": "164",
+   "university_type": "2",
+   "university_name": "มหาวิทยาลัยราชภัฏสงขลา",
+   "university_name_en": "Songkhla Rajabhat University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/164/pdf/1786356963039/SKRU2570-R1.PDF",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe863303a",
+   "university_id": "165",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยสวนดุสิต",
+   "university_name_en": "Suan Dusit University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/165/pdf/1788246209782/TCAS70_Portfolio.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633047",
+   "university_id": "166",
+   "university_type": "2",
+   "university_name": "มหาวิทยาลัยราชภัฏสวนสุนันทา",
+   "university_name_en": "Suan Sunandha Rajabhat University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/166/pdf/1789977525942/ประกาศรับสมัครนักศึกษา ประจำปี 2570 (รอบที่ 1 Portfolio) TCAS เพิ่มคณะใหม่ล่าสุด.pdf",
+   "file_path_2": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/166/pdf/1790055722310/ประกาศรับสมัครนักศึกษา ประจำปี 2570 (รอบที่ 2 Quota) โควตาวิชาและความสามารถพิเศษ (รวมทุกคณะ) เพิ่มคณะใหม่.pdf",
+   "file_path_3": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/166/pdf/1790135705160/เกณฑ์การคัดเลือกรอบที่ รอบที่ 3 Admission 70 (รวมไฟล์) ล่าสุด.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6a99295955603be35663a74f",
+   "university_id": "170",
+   "university_type": "2",
+   "university_name": "มหาวิทยาลัยราชภัฏอุตรดิตถ์",
+   "university_name_en": "Uttaradit Rajabhat University ",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633049",
+   "university_id": "171",
+   "university_type": "2",
+   "university_name": "มหาวิทยาลัยราชภัฏอุบลราชธานี",
+   "university_name_en": "Ubon Ratchathani Rajabhat University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/171/pdf/1792553734184/70-PORT1-admission.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6a572e500f1a2c358d36c4e6",
+   "university_id": "172",
+   "university_type": "2",
+   "university_name": "มหาวิทยาลัยราชภัฏนครสวรรค์",
+   "university_name_en": "Nakhon Sawan Rajabhat University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe863304b",
+   "university_id": "174",
+   "university_type": "2",
+   "university_name": "มหาวิทยาลัยราชภัฏบ้านสมเด็จเจ้าพระยา",
+   "university_name_en": "Bansomdejchaopraya Rajabhat University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/174/pdf/1788853494457/2570-1-1-Announcement.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe863304c",
+   "university_id": "177",
+   "university_type": "2",
+   "university_name": "มหาวิทยาลัยราชภัฏจันทรเกษม",
+   "university_name_en": "Chandrakasem Rajabhat University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe863304d",
+   "university_id": "179",
+   "university_type": "2",
+   "university_name": "มหาวิทยาลัยราชภัฏเพชรบุรี",
+   "university_name_en": "Phetchaburi Rajabhat University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633065",
+   "university_id": "180",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยเกษมบัณฑิต",
+   "university_name_en": "Kasem Bundit University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633066",
+   "university_id": "181",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยสยาม",
+   "university_name_en": "Siam University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/181/pdf/1791869731135/R1_70.pdf",
+   "file_path_2": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/181/pdf/1791869933529/R2_70.pdf",
+   "file_path_3": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/181/pdf/1791869955220/R3_70.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe863304e",
+   "university_id": "191",
+   "university_type": "3",
+   "university_name": "มหาวิทยาลัยเทคโนโลยีราชมงคลธัญบุรี",
+   "university_name_en": "Rajamangala University of Technology Thanyaburi",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/191/pdf/1792052100341/ระเบียบการรับสมัครฯ ปีการศึกษา 2570 รอบ TCAS1 (Portfolio).pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe863304f",
+   "university_id": "192",
+   "university_type": "3",
+   "university_name": "มหาวิทยาลัยเทคโนโลยีราชมงคลกรุงเทพ",
+   "university_name_en": "Rajamangala University of Technology Krungthep",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/192/pdf/1788428924717/ประกาศการรับสมัครสอบคัดเลือก70-TCAS1 Portfolio_V2_21Aug26.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633050",
+   "university_id": "193",
+   "university_type": "3",
+   "university_name": "มหาวิทยาลัยเทคโนโลยีราชมงคลตะวันออก",
+   "university_name_en": "Rajamangala University of Technology Tawan-ok",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633051",
+   "university_id": "194",
+   "university_type": "3",
+   "university_name": "มหาวิทยาลัยเทคโนโลยีราชมงคลพระนคร",
+   "university_name_en": "Rajamangala University of Technology Phra Nakhon",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/194/pdf/1789374094867/ระเบียบการ-T1-2570.pdf",
+   "rounds_with_data": [
+    1
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633052",
+   "university_id": "195",
+   "university_type": "3",
+   "university_name": "มหาวิทยาลัยเทคโนโลยีราชมงคลรัตนโกสินทร์",
+   "university_name_en": "Rajamangala University of Technology Rattanakosin",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/195/pdf/1793002785962/Manual_TCAS1_R1_V01.pdf",
+   "file_path_2": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/195/pdf/1793003033306/TCAS_RMUTR.png",
+   "file_path_3": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/195/pdf/1793003043379/TCAS_RMUTR.png",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633053",
+   "university_id": "196",
+   "university_type": "3",
+   "university_name": "มหาวิทยาลัยเทคโนโลยีราชมงคลล้านนา",
+   "university_name_en": "Rajamangala University of Technology Lanna",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": []
+  },
+  {
+   "_id": "6183b149ee214bbbe8633054",
+   "university_id": "197",
+   "university_type": "3",
+   "university_name": "มหาวิทยาลัยเทคโนโลยีราชมงคลศรีวิชัย",
+   "university_name_en": "Rajamangala University of Technology Srivijaya",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633056",
+   "university_id": "199",
+   "university_type": "3",
+   "university_name": "มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน",
+   "university_name_en": "Rajamangala University of Technology Isan",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe863303b",
+   "university_id": "216",
+   "university_type": "1",
+   "university_name": "มหาวิทยาลัยนวมินทราธิราช",
+   "university_name_en": "Navamindradhiraj University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633071",
+   "university_id": "218",
+   "university_type": "1",
+   "university_name": "สถาบันการพยาบาลศรีสวรินทิรา",
+   "university_name_en": "Srisavarindhira Thai Red Cross Institute of Nursing",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/218/pdf/1790759530676/1. ประกาศรับสมัครรอบที่ 1 Portfolio-2570.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633072",
+   "university_id": "221",
+   "university_type": "5",
+   "university_name": "สถาบันพระบรมราชชนก",
+   "university_name_en": "Praboromarajchanok Institute",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/221/pdf/1789030102818/คู่มือ 2570.pdf",
+   "file_path_2": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/221/pdf/1789030124140/คู่มือ 2570.pdf",
+   "file_path_3": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/221/pdf/1789030131138/คู่มือ 2570.pdf",
+   "rounds_with_data": []
+  },
+  {
+   "_id": "6183b149ee214bbbe863303c",
+   "university_id": "265",
+   "university_type": "1",
+   "university_name": "สถาบันดนตรีกัลยาณิวัฒนา",
+   "university_name_en": "Princess Galyani Vadhana Institute of Music",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633067",
+   "university_id": "905",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยเนชั่น",
+   "university_name_en": "Nation University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe8633069",
+   "university_id": "910",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยราชธานี",
+   "university_name_en": "Ratchathani University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/910/pdf/1783653982555/คุณสมบัติการรับสมัคร-มหาวิทยาลัยราชธานี-TCAS70.pdf",
+   "file_path_2": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/910/pdf/1783653993449/คุณสมบัติการรับสมัคร-มหาวิทยาลัยราชธานี-TCAS70.pdf",
+   "file_path_3": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/910/pdf/1783654002021/คุณสมบัติการรับสมัคร-มหาวิทยาลัยราชธานี-TCAS70.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "651bc98521b119de3a9f2d5a",
+   "university_id": "911",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยปทุมธานี",
+   "university_name_en": "Pathumthani University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_3": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/911/pdf/1783660317564/ประกาศรับสมัครรอบที่ 3 Admission (ปทุมธานี).pdf",
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/911/pdf/1788578163807/ประกาศรับสมัคร TCAS รอบ Portfolio-ม.ปทุม(5Sep2026).pdf",
+   "file_path_2": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/911/pdf/1783826833915/รับสมัคร TCAS รอบที่2-Quota-พย.บ-อินเตอร์.pdf",
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "6183b149ee214bbbe863306b",
+   "university_id": "912",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยพายัพ",
+   "university_name_en": "Payap University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": []
+  },
+  {
+   "_id": "66f46d0f729feee8fccca6c1",
+   "university_id": "914",
+   "university_type": "4",
+   "university_name": "สถาบันเทคโนโลยีแห่งสุวรรณภูมิ",
+   "university_name_en": "Suvarnabhumi Institute Of Technology",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": []
+  },
+  {
+   "_id": "6194b5e61c032d2136f32718",
+   "university_id": "916",
+   "university_type": "4",
+   "university_name": "วิทยาลัยนครราชสีมา",
+   "university_name_en": "Nakhonratchasima College",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    3
+   ]
+  },
+  {
+   "_id": "6527bb0001845e5bb072be74",
+   "university_id": "917",
+   "university_type": "4",
+   "university_name": "วิทยาลัยนอร์ทเทิร์น",
+   "university_name_en": "Northen College",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "651bc9a121b119de3a9f2f16",
+   "university_id": "918",
+   "university_type": "4",
+   "university_name": "สถาบันการจัดการปัญญาภิวัฒน์",
+   "university_name_en": "Panyapiwat Institute of Management",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "651bc9b821b119de3a9f311c",
+   "university_id": "919",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยราชพฤกษ์",
+   "university_name_en": "Rajapruk University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": []
+  },
+  {
+   "_id": "65e7294742e67640037f6bfe",
+   "university_id": "920",
+   "university_type": "4",
+   "university_name": "สถาบันวิทยาการประกอบการแห่งอโยธยา",
+   "university_name_en": "Institute of Entrepreneurial Science Ayothaya",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": []
+  },
+  {
+   "_id": "66f46d59729feee8fcccac1b",
+   "university_id": "921",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยอัสสัมชัญ",
+   "university_name_en": "Assumption University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "file_path_1": "https://s3.ap-southeast-1.amazonaws.com/my-tcas/921/pdf/1784081556100/Final - TCAS70.png",
+   "rounds_with_data": [
+    1
+   ]
+  },
+  {
+   "_id": "66f46d89729feee8fcccafbf",
+   "university_id": "922",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยวงษ์ชวลิตกุล",
+   "university_name_en": "Vongchavalitkul University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "_id": "66f46db4729feee8fcccb2d1",
+   "university_id": "923",
+   "university_type": "4",
+   "university_name": "มหาวิทยาลัยเซาธ์อีสท์บางกอก",
+   "university_name_en": "Southeast Bangkok University",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    2
+   ]
+  },
+  {
+   "_id": "68db8ab22df1734cb9cd36c2",
+   "university_id": "931",
+   "university_type": "4",
+   "university_name": "วิทยาลัยเทคโนโลยีสยาม",
+   "university_name_en": "Siam Technology College",
+   "is_accepted_round1": false,
+   "is_accepted_round2": false,
+   "is_accepted_round3": false,
+   "is_accepted_round4": false,
+   "rounds_with_data": [
+    1,
+    3
+   ]
+  }
+ ]
+}
