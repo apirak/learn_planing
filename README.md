@@ -78,9 +78,28 @@ Subject    { id, name, exam_date }
 Course     { id, subject_id, level: basic|content|practice, hours }
 ```
 
+## ดึงข้อมูลจาก mytcas (TypeScript, Node ≥ 23.6)
+
+```
+pnpm install
+pnpm scrape      # ดาวน์โหลดทั้งหมด → data/ (~10 วิ ถ้ามี cache data/raw/rounds/, ไม่มี ~2.5 นาที)
+pnpm browse      # สร้าง browse.json ใหม่จากไฟล์ใน data/ ไม่ดึงเว็บ
+pnpm t           # test (ไม่แตะเว็บ)
+pnpm typecheck
+```
+
+```
+src/main.ts      ลำดับขั้นทั้งหมด: download → build → บันทึกลง data/
+src/download/    ดึงจากเว็บ 1 ไฟล์ต่อแหล่ง (programs, universities, admission-rounds, exam-subjects, score-keys)
+src/parse/       แปลง HTML/JS ของเว็บเป็นข้อมูล — ใช้ใน download/
+src/build/       เอาสิ่งที่ดาวน์โหลดมารวมเป็นไฟล์ที่ใช้งาน (program-exams, browse, ...) — ไม่แตะเว็บ
+src/shared/      fetch + retry, อ่าน/เขียน data/, types ของทุกไฟล์
+test/            โครงเดียวกับ src/
+```
+
 ## data/browse.json (ข้อมูลของ ui/)
 
-สร้างใหม่โดยไม่ดึงเว็บ: `python3 scrape.py browse` · `fetched_at` = เวลาที่ดึง programs.json · `count` = จำนวนหลักสูตร
+สร้างใหม่โดยไม่ดึงเว็บ: `pnpm browse` · `fetched_at` = เวลาที่ดึง programs.json · `count` = จำนวนหลักสูตร
 
 ```
 data.groups        { "30": "วิศวกรรมศาสตร์" }               กลุ่มสาขา (ใช้เป็น "คณะ") 15 กลุ่ม
@@ -99,7 +118,7 @@ data.programs      [{ id, name, type, uni, group, field, exams: { subject: weigh
 
 ## TODO
 
-- [x] ดึงข้อมูลหลักสูตร + วิชาสอบจาก mytcas — `python3 scrape.py` → `data/` (ต้องมี `beautifulsoup4`)
+- [x] ดึงข้อมูลหลักสูตร + วิชาสอบจาก mytcas — `pnpm scrape` → `data/`
 - [x] UI ดูข้อมูล (มหาวิทยาลัย | คณะ/กลุ่มสาขา | สาขา | หลักสูตร กรองกันได้ทุกทิศ → วิชาที่ต้องสอบ) — `python3 -m http.server 8765` แล้วเปิด <http://localhost:8765/ui/>
 - [ ] ตารางสอบ TGAT/TPAT และ A-Level ปีการศึกษาปัจจุบัน
 - [ ] map คอร์สของเรากับวิชาสอบและระดับ
