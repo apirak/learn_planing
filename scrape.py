@@ -176,9 +176,13 @@ def build_browse(programs, program_exams, score_keys, universities):
     for e in program_exams:
         ex = exams.setdefault(e["program_id"], {})
         for c in e["components"]:
-            keys = [c["key"]] if c["key"] else [k for opt in c["choose_one_of"] for k in opt]
-            for s in (s for k in keys for s in subjects(k)):
-                ex[s] = max(ex.get(s, 0), c["weight"])
+            # ตัวเลือกใน choose_one_of = ผลรวมของหลายวิชา → แบ่งน้ำหนักเท่า ๆ กัน
+            # ponytail: สมมติคะแนนเต็มทุกวิชาเท่ากัน (100) — ถ้าไม่เท่า ต้องถ่วงด้วย max_value ของ score_keys
+            opts = [[c["key"]]] if c["key"] else c["choose_one_of"]
+            for opt in opts:
+                w = round(c["weight"] / len(opt))
+                for s in (s for k in opt for s in subjects(k)):
+                    ex[s] = max(ex.get(s, 0), w)
         for s in (s for k in e["min_scores"] for s in subjects(k)):
             ex.setdefault(s, 0)
 
