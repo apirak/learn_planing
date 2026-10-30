@@ -4,87 +4,180 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TCAS Browser</title>
+<script>
+  // ตั้งธีมก่อน render ครั้งแรก กันจอกระพริบ
+  try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap">
 <style>
   :root {
-    --bg: #f6f6f4; --panel: #ffffff; --line: #e2e2dd; --text: #1d1d1b; --muted: #6b6b66;
-    --sel: #2f5bd3; --sel-text: #ffffff; --hover: #eef1fb; --bar: #2f5bd3; --bar-bg: #e7ebf7;
+    --bg: #fbfbfa; --surface: #f2f2f0; --line: #ebebe8; --ink: #3a3a38; --muted: #6c6c68;
+    --hover: #f0f0ee; --inv: #e6e6e3; --inv-text: #262624; --inv-muted: #5a5a57;
+    --signal: #c0392b; --signal-text: #ffffff; --bar: #8a8a86; --rule: #d6d6d2;
+    color-scheme: light;
+    /* type scale 12 / 14 / 16 / 20 / 28 / 40, baseline 4px */
+    --s1: 12px; --s2: 14px; --s3: 16px; --s4: 20px; --s5: 28px; --s6: 40px;
+    --gut: 24px;
   }
   @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #161716; --panel: #1f201f; --line: #333431; --text: #ececea; --muted: #9a9a94;
-      --sel: #5b82ef; --sel-text: #0d0d0c; --hover: #262a35; --bar: #6f91f2; --bar-bg: #2a2f3d;
+    :root:not([data-theme="light"]) {
+      --bg: #202020; --surface: #262626; --line: #303030; --ink: #d4d4d2; --muted: #9a9a97;
+      --hover: #2a2a2a; --inv: #383838; --inv-text: #ececea; --inv-muted: #b0b0ad;
+      --signal: #e57368; --signal-text: #202020; --bar: #8f8f8c; --rule: #3c3c3c;
+      color-scheme: dark;
     }
   }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--text);
-    font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Sukhumvit Set", "Noto Sans Thai", "Segoe UI", sans-serif; }
-  header { padding: 16px 20px 8px; }
-  h1 { font-size: 18px; margin: 0; }
-  .summary { color: var(--muted); font-size: 13px; margin-top: 2px; }
-  .browser { display: grid; grid-template-columns: 1.1fr 1fr 1.1fr 1.5fr; gap: 1px;
-    background: var(--line); border-block: 1px solid var(--line); }
-  .col { background: var(--panel); display: flex; flex-direction: column; min-width: 0; }
-  .col h2 { font-size: 12px; font-weight: 600; color: var(--muted); margin: 0; padding: 8px 12px;
-    border-bottom: 1px solid var(--line); text-transform: uppercase; letter-spacing: .03em; }
-  .list { height: 340px; overflow-y: auto; }
-  .item { display: flex; justify-content: space-between; gap: 8px; width: 100%; padding: 5px 12px;
-    border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
-  .item:hover { background: var(--hover); }
-  .item:focus-visible { outline: 2px solid var(--sel); outline-offset: -2px; }
-  .item[aria-pressed="true"] { background: var(--sel); color: var(--sel-text); }
-  .item .n { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; flex: none; }
-  .item[aria-pressed="true"] .n, .item[aria-pressed="true"] .sub { color: inherit; opacity: .8; }
-  .item .name { min-width: 0; }
-  .item .sub { display: block; color: var(--muted); font-size: 12px; }
-  .item.all { font-weight: 600; }
-  main { padding: 16px 20px 32px; }
-  #reset { border: 0; background: none; padding: 0; margin-left: 8px; color: var(--sel); font: inherit; cursor: pointer; text-decoration: underline; }
-  main h2 { font-size: 16px; margin: 0 0 4px; }
-  .note { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
-  table { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--line); }
-  th, td { padding: 7px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
-  th { font-size: 12px; color: var(--muted); font-weight: 600; }
-  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .key { color: var(--muted); font-size: 12px; }
-  .tag { display: inline-block; padding: 1px 6px; border-radius: 4px; font-size: 11px; background: var(--bar-bg); white-space: nowrap; }
-  .tag.must { background: #ffd60a; color: #1d1d1b; }
-  .tag.often { background: var(--bar); color: var(--sel-text); }
-  .pct { font-variant-numeric: tabular-nums; }
-  .bar { height: 8px; background: var(--bar-bg); border-radius: 4px; min-width: 80px; }
-  .bar > span { display: block; height: 100%; background: var(--bar); border-radius: 4px; }
-  .empty { padding: 24px; text-align: center; color: var(--muted); background: var(--panel); border: 1px solid var(--line); }
-  a { color: var(--sel); }
-  @media (max-width: 760px) {
-    header, main { padding-inline: 16px; }
-    .browser { grid-template-columns: 1fr; }
-    .list { height: 200px; }
-    .hide-sm { display: none; }
+  :root[data-theme="dark"] {
+    --bg: #202020; --surface: #262626; --line: #303030; --ink: #d4d4d2; --muted: #9a9a97;
+    --hover: #2a2a2a; --inv: #383838; --inv-text: #ececea; --inv-muted: #b0b0ad;
+    --signal: #e57368; --signal-text: #202020; --bar: #8f8f8c; --rule: #3c3c3c;
+    color-scheme: dark;
   }
+  * { box-sizing: border-box; }
+  ::selection { background: var(--ink); color: var(--bg); }
+  html { scrollbar-color: var(--line) transparent; }
+  body { margin: 0; background: var(--bg); color: var(--ink); caret-color: var(--signal);
+    font: 400 var(--s2)/20px "Sarabun", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased; font-feature-settings: "tnum" 0; }
+  button, input { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+  /* ── header ── */
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    height: 48px; padding: 0 var(--gut); border-bottom: 2px solid var(--rule); }
+  .brand { font-size: var(--s2); font-weight: 700; letter-spacing: -.01em; margin: 0; }
+  .brand span { font-weight: 400; color: var(--muted); margin-left: 12px; }
+  .theme { display: flex; border: 1px solid var(--ink); }
+  .theme button { border: 0; background: none; padding: 4px 12px; font-size: var(--s1); line-height: 16px; cursor: pointer; }
+  .theme button + button { border-left: 1px solid var(--ink); }
+  .theme button:hover { background: var(--hover); }
+  .theme button[aria-pressed="true"] { background: var(--inv); color: var(--inv-text); }
+  .theme button:focus-visible { outline-offset: -4px; outline-color: currentColor; }
+
+  /* ── คอลัมน์เลือกด้านบน, คำตอบด้านล่าง ── */
+  .browser { display: grid; grid-template-columns: 1.1fr 1fr 1.1fr 1.5fr; border-bottom: 2px solid var(--rule); }
+  .col { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+  .col + .col { border-left: 1px solid var(--line); }
+  .col-head { padding: 16px 12px 8px; }
+  .col h2 { display: flex; justify-content: space-between; align-items: baseline; gap: 8px;
+    font-size: var(--s2); font-weight: 600; line-height: 20px; margin: 0 0 8px; }
+  .col h2 .n { font-size: var(--s1); font-weight: 400; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .search { width: 100%; height: 32px; padding: 0 8px; border: 1px solid var(--line); border-radius: 0;
+    background: var(--bg); font-size: var(--s2); }
+  .search::placeholder { color: var(--muted); }
+  .search:hover { border-color: var(--muted); }
+  .search:focus-visible { outline: 0; border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+  .list { position: relative; height: 340px; overflow-y: auto; overscroll-behavior: contain;
+    scrollbar-width: thin; scrollbar-color: var(--line) transparent; border-top: 1px solid var(--line); }
+  .item { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; width: 100%;
+    padding: 6px 12px; border: 0; background: none; text-align: left; cursor: pointer; line-height: 20px; }
+  .item:hover { background: var(--hover); }
+  .item:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+  .item[aria-pressed="true"] { background: var(--inv); color: var(--inv-text); }
+  .item[aria-pressed="true"]:focus-visible { outline-color: var(--signal); }
+  .item .n { color: var(--muted); font-size: var(--s1); font-variant-numeric: tabular-nums; flex: none; }
+  .item[aria-pressed="true"] .n { color: var(--inv-muted); }
+  .item .name { min-width: 0; }
+  .item.all { font-weight: 600; border-bottom: 1px solid var(--line); }
+  .nomatch { padding: 12px; color: var(--muted); font-size: var(--s1); }
+
+  /* ── คำตอบ ── */
+  .result { padding: 24px var(--gut) 48px; max-width: 1040px; }
+  .result h1 { font-size: var(--s5); line-height: 36px; font-weight: 700; letter-spacing: -.02em; margin: 0; text-wrap: balance; }
+  .meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; margin: 8px 0 0; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .textbtn { border: 0; background: none; padding: 0; color: var(--ink); cursor: pointer;
+    text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  .textbtn:hover { text-decoration-thickness: 2px; }
+  .status { margin: 12px 0 0; padding: 8px 12px; background: var(--surface); border-left: 1px solid var(--ink); font-size: var(--s1); line-height: 16px; }
+  .status:empty { display: none; }
+
+  .answer { margin: 32px 0 0; padding-top: 12px; border-top: 2px solid var(--rule); }
+  .label { font-size: var(--s1); line-height: 16px; font-weight: 600; margin: 0 0 8px; }
+  .label .dot { display: inline-block; width: 8px; height: 8px; background: var(--signal); margin-right: 8px; vertical-align: 1px; }
+  .must-list { list-style: none; margin: 0; padding: 0; }
+  .must-list li { font-size: var(--s4); line-height: 28px; font-weight: 600; }
+  .must-list li .key { font-size: var(--s2); font-weight: 400; margin-left: 8px; }
+  .must-none { font-size: var(--s3); line-height: 24px; margin: 0; }
+
+  .section { margin: 32px 0 0; padding-top: 12px; border-top: 1px solid var(--rule); }
+  .section h2 { font-size: var(--s3); line-height: 24px; font-weight: 700; margin: 0; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 8px 0 16px; padding: 0; list-style: none; font-size: var(--s1); line-height: 16px; color: var(--muted); }
+  .legend li { display: flex; align-items: center; gap: 8px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 8px 8px 8px 0; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  th:last-child, td:last-child { padding-right: 0; }
+  th { font-size: var(--s1); line-height: 16px; font-weight: 600; border-bottom-color: var(--rule); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .key { color: var(--muted); font-size: var(--s1); }
+  .bar { height: 4px; background: var(--line); margin-top: 6px; }
+  .bar > span { display: block; height: 100%; background: var(--bar); }
+  .bar.must > span { background: var(--signal); }
+  .tag { display: inline-block; padding: 0 6px; font-size: var(--s1); line-height: 20px; white-space: nowrap; border: 1px solid transparent; }
+  .tag.must { background: var(--signal); color: var(--signal-text); font-weight: 600; }
+  .tag.often { border-color: var(--ink); }
+  .tag.some { color: var(--muted); padding-inline: 0; }
+
+  .notes { margin: 24px 0 0; padding: 0; list-style: none; font-size: var(--s1); line-height: 16px; color: var(--muted); max-width: 60ch; }
+  .notes li { padding-left: 16px; position: relative; }
+  .notes li + li { margin-top: 8px; }
+  .notes li::before { content: ""; position: absolute; left: 0; top: 7px; width: 6px; height: 1px; background: currentColor; }
+  .empty { padding: 16px 0; font-size: var(--s3); line-height: 24px; max-width: 48ch; }
+  a { color: var(--ink); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { text-decoration-thickness: 2px; }
+  .ext { margin: 16px 0 0; }
+  kbd { font: inherit; font-size: 11px; border: 1px solid var(--line); padding: 0 4px; }
+  .hint { font-size: var(--s1); color: var(--muted); }
+
+  @media (max-width: 1100px) {
+    .browser { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .col:nth-child(3) { border-left: 0; }
+    .col:nth-child(n+3) { border-top: 1px solid var(--line); }
+    .list { height: 300px; }
+  }
+  @media (max-width: 640px) {
+    :root { --gut: 16px; }
+    .top .brand span { display: none; }
+    .result h1 { font-size: var(--s4); line-height: 28px; }
+    .browser { grid-template-columns: 1fr; }
+    .col + .col { border-left: 0; border-top: 1px solid var(--line); }
+    .list { height: 220px; }
+    .item { padding-block: 10px; }
+  }
+
 </style>
 </head>
 <body>
-<header>
-  <h1>TCAS Browser</h1>
-  <div class="summary"><span id="summary">กำลังโหลดข้อมูล…</span><button id="reset" hidden>ล้างตัวกรอง</button></div>
+<header class="top">
+  <p class="brand">TCAS Browser<span id="fetched"></span></p>
+  <div class="theme" role="group" aria-label="ธีม">
+    <button type="button" data-theme="system">ตามระบบ</button><button type="button" data-theme="light">สว่าง</button><button type="button" data-theme="dark">มืด</button>
+  </div>
 </header>
 
-<div class="browser">
-  <section class="col"><h2>มหาวิทยาลัย</h2><div class="list" id="uni"></div></section>
-  <section class="col"><h2>คณะ (กลุ่มสาขา)</h2><div class="list" id="group"></div></section>
-  <section class="col"><h2>สาขา</h2><div class="list" id="field"></div></section>
-  <section class="col"><h2>หลักสูตร</h2><div class="list" id="name"></div></section>
-</div>
+<div class="app">
+  <div class="browser">
+    <section class="col" aria-labelledby="h-uni"></section>
+    <section class="col" aria-labelledby="h-group"></section>
+    <section class="col" aria-labelledby="h-field"></section>
+    <section class="col" aria-labelledby="h-name"></section>
+  </div>
 
-<main>
-  <h2 id="examTitle">รายการที่มีโอกาสต้องสอบ</h2>
-  <p class="note" id="examNote"></p>
-  <div id="exams"></div>
-</main>
+  <main class="result" aria-live="polite">
+    <h1 id="headline">กำลังโหลดข้อมูล…</h1>
+    <p class="meta"><span id="summary"></span><button class="textbtn" id="reset" hidden>ล้างตัวเลือกทั้งหมด</button></p>
+    <p class="status" id="status"></p>
+    <div id="exams"></div>
+  </main>
+</div>
 
 <script>
 // คอลัมน์ มหาวิทยาลัย | คณะ | สาขา | หลักสูตร (ชื่อ, รวมข้ามมหาวิทยาลัย) — กรองกันได้ทุกทิศ เลือกคอลัมน์ไหนก่อนก็ได้
 const KEYS = ["uni", "group", "field", "name"];
+const TITLE = { uni: "มหาวิทยาลัย", group: "คณะ (กลุ่มสาขา)", field: "สาขา", name: "หลักสูตร" };
 const sel = { group: null, field: null, name: null, uni: null };
+const query = { group: "", field: "", name: "", uni: "" };
 let D, fetchedAt;
 
 const th = (a, b) => a.localeCompare(b, "th");
@@ -105,35 +198,57 @@ function filtered(except) {
 }
 
 // ตัวที่เพิ่งคลิกอยู่เสมอ ตัวเลือกเดิมคืนกลับเฉพาะที่ยังมีหลักสูตรเข้ากัน (เช็กตามลำดับ KEYS)
+// คืนรายการที่ต้องเอาออก เพื่อบอกผู้ใช้
 function select(key, id) {
-  const old = { ...sel };
+  const old = { ...sel }, dropped = [];
   KEYS.forEach(k => sel[k] = null);
   sel[key] = id;
   for (const k of KEYS) if (k !== key && old[k] !== null) {
     sel[k] = old[k];
-    if (!filtered().length) sel[k] = null;
+    if (!filtered().length) { sel[k] = null; dropped.push(`${TITLE[k]} “${label[k](old[k])}”`); }
   }
+  return dropped;
+}
+
+function buildColumns() {
+  document.querySelectorAll(".col").forEach((col, i) => {
+    const k = KEYS[i];
+    col.innerHTML = `<div class="col-head">
+        <h2 id="h-${k}">${TITLE[k]}<span class="n" id="n-${k}"></span></h2>
+        <input class="search" type="search" id="q-${k}" data-key="${k}" placeholder="ค้นหา${TITLE[k].replace(/ \(.*/, "")}" aria-label="ค้นหา${TITLE[k]}" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="list" id="${k}" role="group" aria-labelledby="h-${k}"></div>`;
+  });
 }
 
 function renderList(key) {
-  const count = {};
-  for (const p of filtered(key)) count[p[key]] = (count[p[key]] || 0) + 1;
-  const items = Object.entries(count).map(([id, n]) => ({ id, n, name: label[key](id) }))
+  const progs = filtered(key), count = {};
+  for (const p of progs) count[p[key]] = (count[p[key]] || 0) + 1;
+  const q = query[key].trim().toLowerCase();
+  const all = Object.entries(count).map(([id, n]) => ({ id, n, name: label[key](id) }));
+  const items = all.filter(i => !q || i.id === sel[key] || i.name.toLowerCase().includes(q) || i.id.toLowerCase().includes(q))
     .sort((a, b) => th(a.name, b.name));
-  const btn = (id, html, cls = "") =>
-    `<button class="item ${cls}" data-key="${key}" data-id="${esc(id ?? "")}" aria-pressed="${sel[key] === id}">${html}</button>`;
+  document.getElementById(`n-${key}`).textContent = q ? `${items.length} / ${all.length}` : all.length.toLocaleString();
+  // roving tabindex: กด Tab เข้าคอลัมน์ได้จุดเดียว (ตัวที่เลือก) แล้วใช้ลูกศรเลื่อน
+  const btn = (id, html, cls = "") => {
+    const on = sel[key] === id;
+    return `<button class="item ${cls}" data-key="${key}" data-id="${esc(id ?? "")}" aria-pressed="${on}" tabindex="${on ? 0 : -1}">${html}</button>`;
+  };
   document.getElementById(key).innerHTML =
-    btn(null, `<span class="name">ทั้งหมด</span><span class="n">${items.length}</span>`, "all") +
-    items.map(i => btn(i.id, `<span class="name">${esc(i.name)}</span><span class="n">${i.n}</span>`)).join("");
+    btn(null, `<span class="name">ทั้งหมด</span><span class="n">${progs.length.toLocaleString()}</span>`, "all") +
+    items.map(i => btn(i.id, `<span class="name">${esc(i.name)}</span><span class="n">${i.n.toLocaleString()}</span>`)).join("") +
+    (q && !items.length ? `<p class="nomatch">ไม่พบ “${esc(query[key])}”</p>` : "");
 }
+
+const MUST = 95, OFTEN = 50;
 
 function renderExams() {
   const progs = filtered();
   const unis = new Set(progs.map(p => p.uni)).size;
+  const picked = KEYS.filter(k => sel[k] !== null).map(k => label[k](sel[k]));
+  document.getElementById("headline").textContent = picked.length ? picked.join(" · ") : "ทุกหลักสูตร";
   document.getElementById("summary").textContent =
-    `${progs.length.toLocaleString()} หลักสูตร · ${unis} มหาวิทยาลัย · ข้อมูล ณ ${fetchedAt}`;
-  document.getElementById("examTitle").textContent =
-    "รายการที่มีโอกาสต้องสอบ" + (sel.uni ? ` · ${label.uni(sel.uni)}` : "");
+    `${progs.length.toLocaleString()} หลักสูตร · ${unis.toLocaleString()} มหาวิทยาลัย`;
 
   const stat = {};
   let none = 0;
@@ -146,62 +261,149 @@ function renderExams() {
       if (w > 0) st.ws.push(w); // 0 = ใช้แค่คะแนนขั้นต่ำ
     }
   }
-  const rows = Object.entries(stat).sort((a, b) => b[1].n - a[1].n || th(a[0], b[0]));
-  document.getElementById("examNote").textContent =
-    `จาก ${progs.length.toLocaleString()} หลักสูตร · วิชาที่อยู่ในสัดส่วนคะแนนหรือคะแนนขั้นต่ำ ของรอบใดรอบหนึ่ง (ยังไม่มีข้อมูลรอบ 4)` +
-    (none ? ` · ${none.toLocaleString()} หลักสูตรยังไม่มีข้อมูลคะแนนสอบ (รับแค่ portfolio / เกรด หรือรอบที่ใช้คะแนนยังไม่ประกาศ เช่น กสพท)` : "");
+  const rows = Object.entries(stat).sort((a, b) => b[1].n - a[1].n || th(a[0], b[0]))
+    .map(([s, st]) => ({ s, ...st, pct: st.n / progs.length * 100 }));
   const out = document.getElementById("exams");
-  const link = progs.length === 1 ? `<p class="note">ดูรายละเอียดที่ <a href="https://course.mytcas.com/programs/${progs[0].id}" target="_blank" rel="noopener">course.mytcas.com</a></p>` : "";
-  if (!rows.length) { out.innerHTML = `<div class="empty">ยังไม่มีข้อมูลคะแนนสอบของหลักสูตรที่เลือก — อาจรับแค่ portfolio / เกรด หรือ mytcas ยังไม่ประกาศรอบที่ใช้คะแนน (เช่น รอบ 3 กสพท ของแพทย์)</div>` + link; return; }
+  const link = progs.length === 1
+    ? `<p class="ext">ดูเงื่อนไขเต็มของหลักสูตรนี้ที่ <a href="https://course.mytcas.com/programs/${progs[0].id}" target="_blank" rel="noopener">course.mytcas.com ↗</a></p>` : "";
+  const notes = [
+    "นับวิชาที่อยู่ในสัดส่วนคะแนน หรือใช้เป็นคะแนนขั้นต่ำ ของรอบใดรอบหนึ่ง",
+    "ยังไม่มีข้อมูลรอบ 4",
+    none ? `${none.toLocaleString()} หลักสูตรยังไม่มีข้อมูลคะแนนสอบ — รับด้วย portfolio / เกรด หรือรอบที่ใช้คะแนนยังไม่ประกาศ (เช่น กสพท)` : "",
+  ].filter(Boolean).map(t => `<li>${esc(t)}</li>`).join("");
+
+  if (!rows.length) {
+    out.innerHTML = `<div class="answer"><p class="empty">ยังไม่มีข้อมูลคะแนนสอบของหลักสูตรที่เลือก อาจรับด้วย portfolio / เกรดอย่างเดียว หรือ mytcas ยังไม่ประกาศรอบที่ใช้คะแนน (เช่น รอบ 3 กสพท ของแพทย์)</p></div>${link}`;
+    return;
+  }
+  const name = s => esc(D.subjects[s] || s);
+  const must = rows.filter(r => r.pct >= MUST);
   const range = ws => {
-    if (!ws.length) return "ขั้นต่ำ";
+    if (!ws.length) return '<span class="key">ขั้นต่ำเท่านั้น</span>';
     const lo = Math.min(...ws), hi = Math.max(...ws);
     return lo === hi ? `${lo}%` : `${lo}–${hi}%`;
   };
-  out.innerHTML = `<table>
-    <thead><tr><th>วิชา</th><th class="hide-sm">โอกาสต้องสอบ</th><th class="num">หลักสูตร</th><th>โอกาส</th><th class="num">สัดส่วน</th></tr></thead>
-    <tbody>${rows.map(([s, st]) => {
-      const pct = st.n / progs.length * 100;
-      return `<tr>
-        <td>${esc(D.subjects[s] || s)} <span class="key">${s}</span></td>
-        <td class="hide-sm"><div class="bar"><span style="width:${pct}%"></span></div></td>
-        <td class="num">${st.n.toLocaleString()} <span class="key">(${pct.toFixed(0)}%)</span></td>
-        <td>${pct >= 95 ? '<span class="tag must">ต้องสอบ</span>' : pct >= 50 ? '<span class="tag often">ส่วนใหญ่</span>' : '<span class="tag">บางที่</span>'}</td>
-        <td class="num">${range(st.ws)}</td>
-      </tr>`;
-    }).join("")}</tbody></table>` + link;
+  const tag = pct => pct >= MUST ? '<span class="tag must">ต้องสอบ</span>'
+    : pct >= OFTEN ? '<span class="tag often">ส่วนใหญ่</span>' : '<span class="tag some">บางที่</span>';
+
+  out.innerHTML = `<section class="answer">
+      <p class="label"><span class="dot" aria-hidden="true"></span>ต้องสอบ (ใช้ใน ≥${MUST}% ของ ${progs.length.toLocaleString()} หลักสูตร)</p>
+      ${must.length
+        ? `<ul class="must-list">${must.map(r => `<li>${name(r.s)}<span class="key">${esc(r.s)}</span></li>`).join("")}</ul>`
+        : `<p class="must-none">ไม่มีวิชาที่เกือบทุกหลักสูตรใช้ — ดูตารางด้านล่าง หรือเลือกให้แคบลง</p>`}
+    </section>
+    <section class="section">
+      <h2>วิชาที่ใช้ทั้งหมด</h2>
+      <ul class="legend">
+        <li><span class="tag must">ต้องสอบ</span> ≥${MUST}% ของหลักสูตร</li>
+        <li><span class="tag often">ส่วนใหญ่</span> ${OFTEN}–${MUST - 1}%</li>
+        <li><span class="tag some">บางที่</span> ต่ำกว่า ${OFTEN}%</li>
+        <li>น้ำหนัก = สัดส่วนคะแนนวิชานั้นในการคัดเลือก</li>
+      </ul>
+      <table>
+        <thead><tr><th>วิชา</th><th class="num">หลักสูตร</th><th>โอกาส</th><th class="num">น้ำหนัก</th></tr></thead>
+        <tbody>${rows.map(r => `<tr>
+          <td>${name(r.s)} <span class="key">${esc(r.s)}</span>
+            <div class="bar${r.pct >= MUST ? " must" : ""}" aria-hidden="true"><span style="width:${r.pct}%"></span></div></td>
+          <td class="num">${r.n.toLocaleString()} <span class="key">${r.pct.toFixed(0)}%</span></td>
+          <td>${tag(r.pct)}</td>
+          <td class="num">${range(r.ws)}</td>
+        </tr>`).join("")}</tbody>
+      </table>
+      <ul class="notes">${notes}</ul>
+      ${link}
+    </section>`;
 }
 
-function render() {
+function render(focus) {
   KEYS.forEach(renderList);
+  // innerHTML ใหม่ทำให้ตัวที่เลือกในคอลัมน์อื่นหลุดจอ เลื่อนกลับมาให้เห็น
+  for (const k of KEYS) {
+    const list = document.getElementById(k), b = list.querySelector('[aria-pressed="true"]');
+    if (b && (b.offsetTop < list.scrollTop || b.offsetTop + b.offsetHeight > list.scrollTop + list.clientHeight))
+      list.scrollTop = b.offsetTop - list.clientHeight / 2;
+  }
   renderExams();
   document.getElementById("reset").hidden = KEYS.every(k => sel[k] === null);
+  if (focus) document.querySelector(`#${focus} [aria-pressed="true"]`)?.focus();
 }
 
 function esc(s) {
   return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 }
 
+const status = msg => document.getElementById("status").textContent = msg;
+
 document.addEventListener("click", e => {
   const b = e.target.closest(".item");
   if (!b) return;
   const key = b.dataset.key;
-  select(key, b.dataset.id || null);
-  render();
-  document.querySelector(`#${key} [aria-pressed="true"]`)?.focus();
+  const dropped = select(key, b.dataset.id || null);
+  status(dropped.length ? `เอา ${dropped.join(", ")} ออก เพราะไม่มีหลักสูตรที่ตรงกับตัวเลือกใหม่` : "");
+  render(key);
+});
+
+// คีย์บอร์ด: ↑↓ ในคอลัมน์, ←→ ข้ามคอลัมน์, Home/End, ↓ จากช่องค้นหาลงรายการ, / ไปช่องค้นหา
+document.addEventListener("keydown", e => {
+  const t = e.target;
+  if (e.key === "/" && !/^(INPUT|TEXTAREA)$/.test(t.tagName)) {
+    e.preventDefault();
+    const k = t.closest?.(".item")?.dataset.key || "uni";
+    document.getElementById(`q-${k}`).focus();
+    return;
+  }
+  if (t.classList?.contains("search")) {
+    if (e.key === "ArrowDown") { e.preventDefault(); document.getElementById(t.dataset.key).querySelector(".item")?.focus(); }
+    if (e.key === "Escape" && t.value) { t.value = ""; query[t.dataset.key] = ""; renderList(t.dataset.key); }
+    return;
+  }
+  if (!t.classList?.contains("item")) return;
+  const items = [...t.parentElement.querySelectorAll(".item")], i = items.indexOf(t);
+  const move = el => { if (el) { e.preventDefault(); el.focus(); el.scrollIntoView({ block: "nearest" }); } };
+  const ki = KEYS.indexOf(t.dataset.key);
+  const col = d => document.getElementById(KEYS[ki + d]);
+  switch (e.key) {
+    case "ArrowDown": return move(items[i + 1]);
+    case "ArrowUp": return i === 0 ? move(document.getElementById(`q-${t.dataset.key}`)) : move(items[i - 1]);
+    case "Home": return move(items[0]);
+    case "End": return move(items.at(-1));
+    case "ArrowRight": return move(col(1)?.querySelector('[aria-pressed="true"]'));
+    case "ArrowLeft": return move(col(-1)?.querySelector('[aria-pressed="true"]'));
+  }
+});
+
+document.addEventListener("input", e => {
+  if (!e.target.classList.contains("search")) return;
+  query[e.target.dataset.key] = e.target.value;
+  renderList(e.target.dataset.key);
 });
 
 document.getElementById("reset").addEventListener("click", () => {
-  KEYS.forEach(k => sel[k] = null);
+  KEYS.forEach(k => { sel[k] = null; query[k] = ""; document.getElementById(`q-${k}`).value = ""; });
+  status("");
   render();
 });
 
+// ธีม: ตามระบบ / สว่าง / มืด — จำไว้ในเครื่อง
+const themeBtns = document.querySelectorAll(".theme button");
+function setTheme(t, save) {
+  if (t === "system") delete document.documentElement.dataset.theme;
+  else document.documentElement.dataset.theme = t;
+  themeBtns.forEach(b => b.setAttribute("aria-pressed", b.dataset.theme === t));
+  if (save) try { t === "system" ? localStorage.removeItem("theme") : localStorage.setItem("theme", t); } catch {}
+}
+themeBtns.forEach(b => b.addEventListener("click", () => setTheme(b.dataset.theme, true)));
+setTheme(document.documentElement.dataset.theme || "system");
+
+buildColumns();
 fetch("../data/browse.json").then(r => r.json()).then(j => {
   D = j.data;
   fetchedAt = j.fetched_at.slice(0, 10);
+  document.getElementById("fetched").textContent = `ข้อมูล mytcas ณ ${fetchedAt}`;
   render();
 }).catch(err => {
-  document.getElementById("summary").textContent = "โหลด data/browse.json ไม่ได้ — เปิดผ่าน http server (ดู README)";
+  document.getElementById("headline").textContent = "โหลดข้อมูลไม่สำเร็จ";
+  document.getElementById("summary").textContent = "เปิดหน้านี้ผ่าน pnpm dev (เปิดไฟล์ตรง ๆ ไม่ได้) แล้วรีเฟรช — ถ้ายังไม่ได้ ให้รัน pnpm scrape ก่อน";
   console.error(err);
 });
 </script>
