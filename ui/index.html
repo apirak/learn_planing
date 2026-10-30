@@ -297,6 +297,18 @@ function renderExams() {
   ].filter(Boolean).map(t => `<li>${esc(t)}</li>`).join("");
 
   if (!rows.length) {
+    // ไม่ต้องสอบ แต่ใช้เกณฑ์อื่น เช่น เกรดเฉลี่ย 100% — บอกน้ำหนัก (ช่วงในทุกหลักสูตรที่เลือก)
+    const others = {};
+    for (const p of progs) for (const [k, w] of Object.entries(p.others || {})) (others[k] ||= []).push(w);
+    const used = Object.entries(others).sort((a, b) => Math.max(...b[1]) - Math.max(...a[1]))
+      .map(([k, ws]) => {
+        const lo = Math.min(...ws), hi = Math.max(...ws);
+        return `${esc(D.subjects[k] || k)} ${lo === hi ? lo : `${lo}–${hi}`}%`;
+      });
+    if (used.length) {
+      out.innerHTML = `<div class="answer"><p class="empty">ใช้${used.join(" · ")}</p></div>${link}`;
+      return;
+    }
     out.innerHTML = `<div class="answer"><p class="empty">ยังไม่มีข้อมูลคะแนนสอบของหลักสูตรที่เลือก อาจรับด้วย portfolio / เกรดอย่างเดียว หรือ mytcas ยังไม่ประกาศรอบที่ใช้คะแนน (เช่น รอบ 3 กสพท ของแพทย์)</p></div>${link}`;
     return;
   }

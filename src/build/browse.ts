@@ -34,6 +34,20 @@ export function examWeightsByProgram(programExams: ProgramExam[], keyMap: Map<st
   return byProgram;
 }
 
+/** program_id → { เกณฑ์ที่ไม่ใช่การสอบ (gpax, portfolio, …): น้ำหนัก % สูงสุดในทุกรอบ } — เฉพาะที่มีน้ำหนักจริง */
+export function otherWeightsByProgram(programExams: ProgramExam[], keyMap: Map<string, ScoreKey>) {
+  const byProgram = new Map<string, Record<string, number>>();
+  for (const e of programExams) {
+    for (const c of e.components) {
+      if (c.key === null || c.weight <= 0 || subjectsOfKey(c.key, keyMap).length) continue;
+      if (!byProgram.has(e.program_id)) byProgram.set(e.program_id, {});
+      const weights = byProgram.get(e.program_id)!;
+      weights[c.key] = Math.max(weights[c.key] ?? 0, c.weight);
+    }
+  }
+  return byProgram;
+}
+
 export function buildBrowse(
   programs: Program[],
   programExams: ProgramExam[],
@@ -42,6 +56,7 @@ export function buildBrowse(
 ): Browse {
   const keyMap = new Map(scoreKeys.map(k => [k.key, k]));
   const weights = examWeightsByProgram(programExams, keyMap);
+  const others = otherWeightsByProgram(programExams, keyMap);
   const fieldId = (p: Program) => `${p.group_field_id}-${p.field_id}`;
 
   const rows = new Map<string, BrowseProgram>(); // programs.json มี 1 แถวต่อวิชาเอก — เก็บแถวแรกของแต่ละ program_id
@@ -55,9 +70,10 @@ export function buildBrowse(
       group: p.group_field_id,
       field: fieldId(p),
       exams: weights.get(p.program_id) ?? {},
+      others: others.get(p.program_id) ?? {},
     });
   }
-  const used = [...new Set([...rows.values()].flatMap(r => Object.keys(r.exams)))].sort();
+  const used = [...new Set([...rows.values()].flatMap(r => [...Object.keys(r.exams), ...Object.keys(r.others)]))].sort();
   return {
     groups: Object.fromEntries(programs.map(p => [p.group_field_id, p.group_field_th])),
     fields: Object.fromEntries(programs.map(p => [fieldId(p), p.field_name_th])),

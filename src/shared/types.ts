@@ -104,6 +104,7 @@ export type Browse = {
   groups: Record<string, string>;
   fields: Record<string, string>;
   universities: Record<string, string>;
+  /** key ของวิชาสอบ และเกณฑ์อื่นใน others → ชื่อ */
   subjects: Record<string, string>;
   programs: BrowseProgram[];
 };
@@ -117,4 +118,6 @@ export type BrowseProgram = {
   field: string;
   /** วิชา → น้ำหนัก % สูงสุดในทุกรอบ (0 = ใช้แค่คะแนนขั้นต่ำ) */
   exams: Record<string, number>;
+  /** เกณฑ์ที่ไม่ใช่การสอบ (gpax, portfolio, interview, …) → น้ำหนัก % สูงสุดในทุกรอบ */
+  others: Record<string, number>;
 };
