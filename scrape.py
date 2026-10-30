@@ -6,6 +6,8 @@
 - programs.json       หลักสูตรทั้งหมด (S3)
 - admission_rounds.json  รอบรับ/โครงการ/สัดส่วนคะแนน ต่อหลักสูตร (S3, เรียกทีละหลักสูตร)
 - exam_subjects.json  โครงสร้างข้อสอบ + ตัวอย่างข้อสอบ (HTML ของ mytcas.com/blueprint)
+- score_keys.json     ความหมายของ key ใน scores (tgat, a_lv_61, gpax, ...) + วิชาใน exam_subjects ที่ต้องสอบ
+- program_exams.json  ต่อรอบรับ: องค์ประกอบคะแนน + สัดส่วน + คะแนนขั้นต่ำ (สร้างจาก admission_rounds)
 
 ไฟล์ดิบของ rounds เก็บใน data/raw/rounds/ — รันซ้ำจะข้ามที่โหลดแล้ว ลบโฟลเดอร์นี้ถ้าต้องการดึงใหม่ทั้งหมด
 """
@@ -109,6 +111,51 @@ def scrape_rounds(program_ids):
                 print(f"  rounds {i}/{len(program_ids)}")
     save("admission_rounds.json", f"{S3}/rounds/{{program_id}}.json", data)
     return data
+
+
+def scrape_score_keys(subjects):
+    """พจนานุกรม key ของ scores ฝังอยู่ใน JS ของเว็บเป็น JSON.parse('[{"key":...}]')"""
+    html = fetch("https://course.mytcas.com/universities").decode("utf-8")
+    js_url = "https://course.mytcas.com" + re.search(r'/static/js/main\.[0-9a-f]+\.chunk\.js', html)[0]
+    js = fetch(js_url).decode("utf-8")
+    keys = json.loads(re.search(r"JSON\.parse\('(\[\{\"key\":.*?\])'\)", js)[1].replace("\\'", "'"))
+    subject_keys = [s["score_key"] for s in subjects]
+    for k in keys:
+        # tgat -> tgat1/2/3 (รวม 3 ส่วน), tpat21 -> tpat2 (ส่วนย่อย), a_lv_61 -> a_lv_61; gpax/portfolio -> []
+        k["exam_subjects"] = [s for s in subject_keys if s.startswith(k["key"]) or k["key"].startswith(s)]
+    save("score_keys.json", js_url, keys)
+    return keys
+
+
+def build_program_exams(rounds, score_keys):
+    known = {k["key"] for k in score_keys}
+    data = []
+    for r in rounds:
+        scores = dict(r.get("scores") or {})
+        components = []
+        if "cal_subject_name" in scores:
+            # "a|b c" = a [หรือ] ผลรวมของ b กับ c — ตามที่เว็บแสดง
+            options = [opt.split() for opt in scores.pop("cal_subject_name").strip().split("|")]
+            components.append({"key": None, "weight": scores.pop("cal_score_sum"), "choose_one_of": options})
+            scores.pop("cal_type", None)
+        components[:0] = [{"key": k, "weight": w} for k, w in scores.items()]
+        min_scores = {k[4:]: v for k, v in (r.get("score_conditions") or {}).items()
+                      if k.startswith("min_") and isinstance(v, (int, float))}
+        if not components and all(k.startswith("gpa") for k in min_scores):
+            continue  # ไม่มีสัดส่วนคะแนน และมีแค่เกรดขั้นต่ำ (เช่น portfolio + GPAX) — ไม่ต้องสอบ
+        assert all(c["key"] in known for c in components if c["key"]), components
+        data.append({
+            "program_id": r["program_id"],
+            "university_id": r["university_id"],
+            "round": r["round"],
+            "project_id": r.get("project_id"),
+            "project_name_th": r.get("project_name_th"),
+            "receive_student_number": r.get("receive_student_number"),
+            "min_total_score": r.get("min_total_score"),
+            "components": components,
+            "min_scores": min_scores,  # key อาจลงท้าย _tscore (คะแนน T)
+        })
+    save("program_exams.json", "admission_rounds.json + score_keys.json", data)
 
 
 # --- mytcas.com/blueprint ---------------------------------------------------
@@ -229,6 +276,10 @@ def main():
     program_ids = scrape_programs()
     rounds = scrape_rounds(program_ids)
     scrape_universities(rounds)
+    score_keys = scrape_score_keys(subjects)
+    tgat = next(k for k in score_keys if k["key"] == "tgat")
+    assert tgat["exam_subjects"] == ["tgat1", "tgat2", "tgat3"], tgat
+    build_program_exams(rounds, score_keys)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,903 @@
+{
+ "fetched_at": "2026-10-30T08:19:13+00:00",
+ "source": "https://course.mytcas.com/static/js/main.03d554bd.chunk.js",
+ "count": 120,
+ "data": [
+  {
+   "key": "tgat2",
+   "max_value": 100,
+   "label": "การคิดอย่างมีเหตุผล (TGAT2)",
+   "short_label": "TGAT2",
+   "exam_subjects": [
+    "tgat2"
+   ]
+  },
+  {
+   "key": "tpat21",
+   "max_value": 100,
+   "label": "ทัศนศิลป์ (TPAT21)",
+   "short_label": "TPAT21",
+   "exam_subjects": [
+    "tpat2"
+   ]
+  },
+  {
+   "key": "a_lv_81",
+   "max_value": 100,
+   "label": "A-Level ภาษาไทย",
+   "short_label": "A-Level ไทย",
+   "exam_subjects": [
+    "a_lv_81"
+   ]
+  },
+  {
+   "key": "gpa23",
+   "max_value": 4,
+   "label": "เกรดเฉลี่ยกลุ่มสาระฯวิทยาศาสตร์และเทคโนโลยี",
+   "short_label": "GPA วิทยาศาสตร์",
+   "exam_subjects": []
+  },
+  {
+   "key": "vnet_514",
+   "max_value": 100,
+   "label": "วิชา สมรรถนะเทคโนโลยีดิจิทัล",
+   "short_label": "VNET513 เทคโนโลยี",
+   "exam_subjects": []
+  },
+  {
+   "key": "tu091",
+   "max_value": 50,
+   "label": "วิชาเฉพาะ ม.ธรรมศาสตร์ วิชาวาดเส้นเพื่อการออกแบบ",
+   "short_label": "TU091 วาดเส้นออกแบบ",
+   "exam_subjects": []
+  },
+  {
+   "key": "tuget",
+   "max_value": 120,
+   "label": "TU-GET (Thammasat University Graduate English Test)  มหาวิทยาลัยธรรมศาสตร์",
+   "short_label": "TU-GET",
+   "exam_subjects": []
+  },
+  {
+   "key": "cmuetegs",
+   "max_value": 100,
+   "label": "CMU-TEGS (Chiang Mai University Test of English for Graduate Studies) มหาวิทยาลัยเชียงใหม่",
+   "short_label": "CMU-TEGS",
+   "exam_subjects": []
+  },
+  {
+   "key": "tgat1",
+   "max_value": 100,
+   "label": "การสื่อสารภาษาอังกฤษ (TGAT1)",
+   "short_label": "TGAT1",
+   "exam_subjects": [
+    "tgat1"
+   ]
+  },
+  {
+   "key": "tpat2",
+   "max_value": 100,
+   "label": "ความถนัดศิลปกรรมศาสตร์ (TPAT2)",
+   "short_label": "TPAT2",
+   "exam_subjects": [
+    "tpat2"
+   ]
+  },
+  {
+   "key": "mu003",
+   "max_value": 30,
+   "label": "วิชาเฉพาะ ม.มหิดล วิชาความถนัดทางฉุกเฉินการแพทย์",
+   "short_label": "MU003 ฉุกเฉินการแพทย์",
+   "exam_subjects": []
+  },
+  {
+   "key": "ielts",
+   "max_value": 9,
+   "label": "IELTS (International English Language Testing System)",
+   "short_label": "IELTS",
+   "exam_subjects": []
+  },
+  {
+   "key": "tpat4",
+   "max_value": 100,
+   "label": "ความถนัดสถาปัตยกรรมศาสตร์ (TPAT4)",
+   "short_label": "TPAT4",
+   "exam_subjects": [
+    "tpat4"
+   ]
+  },
+  {
+   "key": "a_lv_62",
+   "max_value": 100,
+   "label": "A-Level คณิตศาสตร์ประยุกต์ 2 (พื้นฐาน)",
+   "short_label": "A-Level คณิต2",
+   "exam_subjects": [
+    "a_lv_62"
+   ]
+  },
+  {
+   "key": "a_lv_66",
+   "max_value": 100,
+   "label": "A-Level ชีววิทยา",
+   "short_label": "A-Level ชีวะ",
+   "exam_subjects": [
+    "a_lv_66"
+   ]
+  },
+  {
+   "key": "gpax6_score",
+   "max_value": 4,
+   "label": "เกรดเฉลี่ย",
+   "short_label": "GPAX6",
+   "exam_subjects": []
+  },
+  {
+   "key": "gpa27",
+   "max_value": 4,
+   "label": "เกรดเฉลี่ยกลุ่มสาระฯการงานอาชีพและเทคโนโลยี",
+   "short_label": "GPA การงานอาชีพและเทคโนโลยี",
+   "exam_subjects": []
+  },
+  {
+   "key": "tu004",
+   "max_value": 70,
+   "label": "วิชาเฉพาะ ม.ธรรมศาสตร์ วิชาความถนัดทางรัฐศาสตร์ และเรียงความ สาขาวิชาบริหารรัฐกิจ",
+   "short_label": "TU004 บริหารรัฐกิจ",
+   "exam_subjects": []
+  },
+  {
+   "key": "tu071",
+   "max_value": 35,
+   "label": "วิชาเฉพาะ ม.ธรรมศาสตร์ วิชาวาดเส้นเพื่อออกแบบแฟชั่น",
+   "short_label": "TU071 วาดเส้นแฟชั่น",
+   "exam_subjects": []
+  },
+  {
+   "key": "netsat_bio",
+   "max_value": 100,
+   "label": "ความฉลาดรู้เฉพาะ ด้านชีววิทยา (จัดสอบโดยมหาวิทยาลัยขอนแก่น)",
+   "short_label": "NETSAT BIO",
+   "exam_subjects": []
+  },
+  {
+   "key": "toefl_ibt",
+   "max_value": 120,
+   "label": "TOEFL IBT (Test of English as a Foreign Language Internet-Based Test )",
+   "short_label": "TOEFL IBT",
+   "exam_subjects": []
+  },
+  {
+   "key": "a_lv_70",
+   "max_value": 100,
+   "label": "A-Level สังคมศึกษา",
+   "short_label": "A-Level สังคมศึกษา",
+   "exam_subjects": [
+    "a_lv_70"
+   ]
+  },
+  {
+   "key": "a_lv_88",
+   "max_value": 100,
+   "label": "A-Level ภาษาบาลี",
+   "short_label": "A-Level บาลี",
+   "exam_subjects": [
+    "a_lv_88"
+   ]
+  },
+  {
+   "key": "gpax5_score",
+   "max_value": 4,
+   "label": "เกรดเฉลี่ย  5 ภาค",
+   "short_label": "GPAX5",
+   "exam_subjects": []
+  },
+  {
+   "key": "gpa21",
+   "max_value": 4,
+   "label": "เกรดเฉลี่ยกลุ่มสาระฯภาษาไทย",
+   "short_label": "GPA ภาษาไทย",
+   "exam_subjects": []
+  },
+  {
+   "key": "gpa25",
+   "max_value": 4,
+   "label": "เกรดเฉลี่ยกลุ่มสาระฯสุขศึกษาและพลศึกษา",
+   "short_label": "GPA สุขศึกษาและพลศึกษา",
+   "exam_subjects": []
+  },
+  {
+   "key": "toefl_cbt",
+   "max_value": 300,
+   "label": "TOEFL CBT (Test of English as a Foreign Language Computer-Based Test )",
+   "short_label": "TOEFL CBT",
+   "exam_subjects": []
+  },
+  {
+   "key": "sat",
+   "max_value": 1600,
+   "label": "SAT (Scholastic Aptitude Test)",
+   "short_label": "SAT",
+   "exam_subjects": []
+  },
+  {
+   "key": "su008",
+   "max_value": 100,
+   "label": "วิชาเฉพาะ ม.ศิลปากร วิชาเครื่องเคลือบดินเผา คณะมัณฑนศิลป์",
+   "short_label": "SU008 เครื่องเคลือบดินเผา คณะมัณฑนศิลป์",
+   "exam_subjects": []
+  },
+  {
+   "key": "su009",
+   "max_value": 100,
+   "label": "วิชาเฉพาะ ม.ศิลปากร วิชาออกแบบเครื่่องประดับ คณะมัณฑนศิลป์",
+   "short_label": "SU009 ออกแบบเครื่่องประดับ คณะมัณฑนศิลป์",
+   "exam_subjects": []
+  },
+  {
+   "key": "gpa22",
+   "max_value": 4,
+   "label": "เกรดเฉลี่ยกลุ่มสาระฯคณิตศาสตร์",
+   "short_label": "GPA คณิตศาสตร์",
+   "exam_subjects": []
+  },
+  {
+   "key": "tu092",
+   "max_value": 50,
+   "label": "วิชาเฉพาะ ม.ธรรมศาสตร์ วิชาความถนัดทางออกแบบหัตถอุตสาหกรรม",
+   "short_label": "TU092 หัตถอุตสาหกรรม",
+   "exam_subjects": []
+  },
+  {
+   "key": "su005",
+   "max_value": 100,
+   "label": "วิชาเฉพาะ ม.ศิลปากร วิชาวาดเส้นมัณฑศิลป์ คณะมัณฑนศิลป์",
+   "short_label": "SU005 วาดเส้นมัณฑศิลป์ คณะมัณฑนศิลป์",
+   "exam_subjects": []
+  },
+  {
+   "key": "su014",
+   "max_value": 200,
+   "label": "วิชาเฉพาะ ม.ศิลปากร วิชา PSAT คณะเภสัชศาสตร",
+   "short_label": "SU014 PSAT คณะเภสัชศาสตร",
+   "exam_subjects": []
+  },
+  {
+   "key": "tgat3",
+   "max_value": 100,
+   "label": "สมรรถนะการทำงาน (TGAT3)",
+   "short_label": "TGAT3",
+   "exam_subjects": [
+    "tgat3"
+   ]
+  },
+  {
+   "key": "tpat5",
+   "max_value": 100,
+   "label": "ความถนัดครุศาสตร์-ศึกษาศาสตร์ (TPAT 5)",
+   "short_label": "TPAT5",
+   "exam_subjects": [
+    "tpat5"
+   ]
+  },
+  {
+   "key": "a_lv_86",
+   "max_value": 100,
+   "label": "A-Level ภาษาเกาหลี",
+   "short_label": "A-Level เกาหลี",
+   "exam_subjects": [
+    "a_lv_86"
+   ]
+  },
+  {
+   "key": "gpa24",
+   "max_value": 4,
+   "label": "เกรดเฉลี่ยกลุ่มสาระฯสังคม",
+   "short_label": "GPA สังคม",
+   "exam_subjects": []
+  },
+  {
+   "key": "su001",
+   "max_value": 100,
+   "label": "วิชาเฉพาะ ม.ศิลปากร วิชาวาดเส้น",
+   "short_label": "SU001 วาดเส้น",
+   "exam_subjects": []
+  },
+  {
+   "key": "kept",
+   "max_value": 100,
+   "label": "KKU-KEPT (Khon Kaen University English Proficiency Test) มหาวิทยาลัยขอนแก่น",
+   "short_label": "KKU-KEPT",
+   "exam_subjects": []
+  },
+  {
+   "key": "su013",
+   "max_value": 100,
+   "label": "วิชาเฉพาะ ม.ศิลปากร วิชาทักษะภาษาไทย คณะศึกษาศาสตร์",
+   "short_label": "SU013 ทักษะภาษาไทย คณะศึกษาศาสตร์",
+   "exam_subjects": []
+  },
+  {
+   "key": "tpat11",
+   "max_value": 100,
+   "label": "เชาว์ปัญญา (TPAT11)",
+   "short_label": "TPAT11",
+   "exam_subjects": []
+  },
+  {
+   "key": "a_lv_64",
+   "max_value": 100,
+   "label": "A-Level ฟิสิกส์",
+   "short_label": "A-Level ฟิสิกส์",
+   "exam_subjects": [
+    "a_lv_64"
+   ]
+  },
+  {
+   "key": "a_lv_82",
+   "max_value": 100,
+   "label": "A-Level ภาษาอังกฤษ",
+   "short_label": "A-Level อังกฤษ",
+   "exam_subjects": [
+    "a_lv_82"
+   ]
+  },
+  {
+   "key": "a_lv_84",
+   "max_value": 100,
+   "label": "A-Level ภาษาเยอรมัน",
+   "short_label": "A-Level เยอรมัน",
+   "exam_subjects": [
+    "a_lv_84"
+   ]
+  },
+  {
+   "key": "a_lv_85",
+   "max_value": 100,
+   "label": "A-Level ภาษาญี่ปุ่น",
+   "short_label": "A-Level ญี่ปุ่น",
+   "exam_subjects": [
+    "a_lv_85"
+   ]
+  },
+  {
+   "key": "gpa28",
+   "max_value": 4,
+   "label": "เกรดเฉลี่ยกลุ่มสาระฯภาษาต่างประเทศ",
+   "short_label": "GPA ภาษาต่างประเทศ",
+   "exam_subjects": []
+  },
+  {
+   "key": "kuept",
+   "max_value": 100,
+   "label": "KU-EPT  (Kasetsart University English Proficiency Test) มหาวิทยาลัยเกษตรศาสตร์",
+   "short_label": "KU-EPT",
+   "exam_subjects": []
+  },
+  {
+   "key": "cefr",
+   "max_value": 1000,
+   "label": "CEFR (The Common European Framework of Reference for Languages)",
+   "short_label": "CEFR",
+   "exam_subjects": []
+  },
+  {
+   "key": "su012",
+   "max_value": 100,
+   "label": "วิชาเฉพาะ ม.ศิลปากร วิชาสังคีตศิลป์ไทย คณะอักษรศาสตร",
+   "short_label": "SU012 สังคีตศิลป์ไทย คณะอักษรศาสตร",
+   "exam_subjects": []
+  },
+  {
+   "key": "tpat23",
+   "max_value": 100,
+   "label": "นาฏศิลป์ (TPAT23)",
+   "short_label": "TPAT23",
+   "exam_subjects": [
+    "tpat2"
+   ]
+  },
+  {
+   "key": "a_lv_87",
+   "max_value": 100,
+   "label": "A-Level ภาษาจีน",
+   "short_label": "A-Level จีน",
+   "exam_subjects": [
+    "a_lv_87"
+   ]
+  },
+  {
+   "key": "tu061",
+   "max_value": 35,
+   "label": "วิชาเฉพาะ ม.ธรรมศาสตร์ วิชาวาดเส้นเพื่อออกแบบสิ่งทอ",
+   "short_label": "TU061 วาดเส้นสิ่งทอ",
+   "exam_subjects": []
+  },
+  {
+   "key": "tu081",
+   "max_value": 40,
+   "label": "วิชาเฉพาะ ม.ธรรมศาสตร์ วิชาความถนัดทางการละคอน",
+   "short_label": "TU081 ละคอน",
+   "exam_subjects": []
+  },
+  {
+   "key": "netsat_lang",
+   "max_value": 100,
+   "label": "ความฉลาดรู้ทั่วไป ด้านภาษา (จัดสอบโดยมหาวิทยาลัยขอนแก่น)",
+   "short_label": "NETSAT LANG",
+   "exam_subjects": []
+  },
+  {
+   "key": "tpat1_tscore",
+   "max_value": 100,
+   "label": "วิชาเฉพาะกสพท (TPAT1) T-Score",
+   "short_label": "TPAT1",
+   "exam_subjects": []
+  },
+  {
+   "key": "kmitl_tep",
+   "max_value": 120,
+   "label": "KMITL-TEP (King Mongkut's Institute of Technology Ladkrabang's Test of English Proficiency)",
+   "short_label": "KMITL-TEP",
+   "exam_subjects": []
+  },
+  {
+   "key": "netsat_lang_th",
+   "max_value": 100,
+   "label": "ความฉลาดรู้ทั่วไป ด้านภาษาไทย (จัดสอบโดยมหาวิทยาลัยขอนแก่น)",
+   "short_label": "NETSAT LANG THAI",
+   "exam_subjects": []
+  },
+  {
+   "key": "tbat",
+   "max_value": 2400,
+   "label": "Thai Biomedical Admissions Test",
+   "short_label": "TBAT",
+   "exam_subjects": []
+  },
+  {
+   "key": "tpat13",
+   "max_value": 100,
+   "label": "ทักษะการเชื่อมโยง (TPAT13)",
+   "short_label": "TPAT13",
+   "exam_subjects": []
+  },
+  {
+   "key": "tpat1",
+   "max_value": 100,
+   "label": "วิชาเฉพาะกสพท (TPAT1)",
+   "short_label": "TPAT1",
+   "exam_subjects": []
+  },
+  {
+   "key": "a_lv_83",
+   "max_value": 100,
+   "label": "A-Level ภาษาฝรั่งเศส",
+   "short_label": "A-Level ฝรั่งเศส",
+   "exam_subjects": [
+    "a_lv_83"
+   ]
+  },
+  {
+   "key": "gpa29",
+   "max_value": 4,
+   "label": "เกรดเฉลี่ยกลุ่มสาระการศึกษาค้นคว้าด้วยตนเอง (IS)",
+   "short_label": "GPA IS",
+   "exam_subjects": []
+  },
+  {
+   "key": "vnet_511",
+   "max_value": 100,
+   "label": "วิชา สมรรถนะที่จำเป็นในการเข้าสู่อาชีพ",
+   "short_label": "VNET511 อาชีพ",
+   "exam_subjects": []
+  },
+  {
+   "key": "tu003",
+   "max_value": 70,
+   "label": "วิชาเฉพาะ ม.ธรรมศาสตร์ วิชาความถนัดทางรัฐศาสตร์ และเรียงความ สาขาวิชาการระหว่างประเทศ",
+   "short_label": "TU003 ระหว่างประเทศ",
+   "exam_subjects": []
+  },
+  {
+   "key": "netsat_math",
+   "max_value": 100,
+   "label": "ความฉลาดรู้ทั่วไป ด้านคณิตศาสตร์ (จัดสอบโดยมหาวิทยาลัยขอนแก่น)",
+   "short_label": "NETSAT MATH",
+   "exam_subjects": []
+  },
+  {
+   "key": "netsat_phy",
+   "max_value": 100,
+   "label": "ความฉลาดรู้เฉพาะ ด้านฟิสิกส์ (จัดสอบโดยมหาวิทยาลัยขอนแก่น)",
+   "short_label": "NETSAT PHYSIC",
+   "exam_subjects": []
+  },
+  {
+   "key": "netsat_chem",
+   "max_value": 100,
+   "label": "ความฉลาดรู้เฉพาะ ด้านเคมี (จัดสอบโดยมหาวิทยาลัยขอนแก่น)",
+   "short_label": "NETSAT CHEM",
+   "exam_subjects": []
+  },
+  {
+   "key": "toefl_itp",
+   "max_value": 677,
+   "label": "TOEFL ITP (Test of English as a Foreign Language Institutional Testing Program)",
+   "short_label": "TOEFL ITP",
+   "exam_subjects": []
+  },
+  {
+   "key": "psutep",
+   "max_value": 400,
+   "label": "PSU-TEP  (Prince of Songkla University Test of English Proficiency) มหาวิทยาลัยสงขลานครินทร์",
+   "short_label": "PSU-TEP",
+   "exam_subjects": []
+  },
+  {
+   "key": "det",
+   "max_value": 160,
+   "label": "DET (Duolingo English Test (DET)) มหาวิทยาลัย CMKL",
+   "short_label": "DET",
+   "exam_subjects": []
+  },
+  {
+   "key": "tpat12",
+   "max_value": 100,
+   "label": "จริยธรรมทางการแพทย์ (TPAT12)",
+   "short_label": "TPAT12",
+   "exam_subjects": []
+  },
+  {
+   "key": "tpat3",
+   "max_value": 100,
+   "label": "ความถนัดวิทยาศาสตร์ เทคโนโลยี วิศวกรรมศาสตร์ (TPAT3)",
+   "short_label": "TPAT3",
+   "exam_subjects": [
+    "tpat3"
+   ]
+  },
+  {
+   "key": "gpa22_23",
+   "max_value": 4,
+   "label": "เกรดเฉลี่ยกลุ่มสาระคณิตศาสตร์และวิทยาศาสตร์",
+   "short_label": "GPA คณิต วิทย์",
+   "exam_subjects": []
+  },
+  {
+   "key": "vnet_51",
+   "max_value": 100,
+   "label": "สมรรถนะที่จำเป็นในการเข้าสู่อาชีพระดับ ปวช.",
+   "short_label": "VNET51 ปวช",
+   "exam_subjects": []
+  },
+  {
+   "key": "vnet____513",
+   "max_value": 100,
+   "label": "วิชา สมรรถนะเทคโนโลยีดิจิทัล",
+   "short_label": "VNET513 เทคโนโลยี",
+   "exam_subjects": []
+  },
+  {
+   "key": "tu001",
+   "max_value": 100,
+   "label": "วิชาเฉพาะ ม.ธรรมศาสตร์ วิชาความถนัดทางนิติศาสตร์",
+   "short_label": "TU001 นิติศาสตร์",
+   "exam_subjects": []
+  },
+  {
+   "key": "tu002",
+   "max_value": 70,
+   "label": "วิชาเฉพาะ ม.ธรรมศาสตร์ วิชาความถนัดทางรัฐศาสตร์ และเรียงความ สาขาวิชาการเมืองการปกครอง",
+   "short_label": "TU002 การเมืองการปกครอง",
+   "exam_subjects": []
+  },
+  {
+   "key": "gsat_m",
+   "max_value": 800,
+   "label": "วิชา GSAT Math",
+   "short_label": "GSAT MATH",
+   "exam_subjects": []
+  },
+  {
+   "key": "mu_elt",
+   "max_value": 150,
+   "label": "MU-ELT (Mahidol University English Language Test (MU-ELT))",
+   "short_label": "MU-ELT",
+   "exam_subjects": []
+  },
+  {
+   "key": "netsat_sci",
+   "max_value": 100,
+   "label": "ความฉลาดรู้เฉพาะ ด้านวิทยาศาสตร์และเทคโนโลยี (จัดสอบโดยมหาวิทยาลัยขอนแก่น)",
+   "short_label": "NETSAT SCI",
+   "exam_subjects": []
+  },
+  {
+   "key": "gpa22_23_28",
+   "max_value": 4,
+   "label": "เกรดเฉลี่ยกลุ่มสาระคณิตศาสตร์และวิทยาศาสตร์และกลุ่มสาระการเรียนรู้ภาษาต่างประเทศ",
+   "short_label": "GPA คณิต วิทย์ อังกฤษ",
+   "exam_subjects": []
+  },
+  {
+   "key": "ged_score",
+   "max_value": 800,
+   "label": "GED Score สำหรับนักเรียนจากต่างประเทศ",
+   "short_label": "GED",
+   "exam_subjects": []
+  },
+  {
+   "key": "tgat",
+   "max_value": 100,
+   "label": "ความถนัดทั่วไป (TGAT)",
+   "short_label": "TGAT",
+   "exam_subjects": [
+    "tgat1",
+    "tgat2",
+    "tgat3"
+   ]
+  },
+  {
+   "key": "a_lv_89",
+   "max_value": 100,
+   "label": "A-Level ภาษาสเปน",
+   "short_label": "A-Level สเปน",
+   "exam_subjects": [
+    "a_lv_89"
+   ]
+  },
+  {
+   "key": "su002",
+   "max_value": 100,
+   "label": "วิชาเฉพาะ ม.ศิลปากร วิชาองค์ประกอบศิลป์",
+   "short_label": "SU002 องค์ประกอบศิลป์",
+   "exam_subjects": []
+  },
+  {
+   "key": "su003",
+   "max_value": 100,
+   "label": "วิชาเฉพาะ ม.ศิลปากร วิชาสร้างสรรค์",
+   "short_label": "SU003 สร้างสรรค์",
+   "exam_subjects": []
+  },
+  {
+   "key": "su004",
+   "max_value": 100,
+   "label": "วิชาเฉพาะ ม.ศิลปากร วิชาความรู้ทั่วไปทางศิลปะ",
+   "short_label": "SU004 ทั่วไปศิลปะ",
+   "exam_subjects": []
+  },
+  {
+   "key": "tu062",
+   "max_value": 35,
+   "label": "วิชาเฉพาะ ม.ธรรมศาสตร์ วิชาความถนัดทางออกแบบสิ่งทอ",
+   "short_label": "TU062 ออกแบบสิ่งทอ",
+   "exam_subjects": []
+  },
+  {
+   "key": "gsat_l",
+   "max_value": 800,
+   "label": "วิชา GSAT Language",
+   "short_label": "GSAT LANGUAGE",
+   "exam_subjects": []
+  },
+  {
+   "key": "toefl_pbt",
+   "max_value": 677,
+   "label": "TOEFL PBT (Test of English as a Foreign Language Paper-Based Test )",
+   "short_label": "TOEFL PBT",
+   "exam_subjects": []
+  },
+  {
+   "key": "su007",
+   "max_value": 100,
+   "label": "วิชาเฉพาะ ม.ศิลปากร วิชาประยุกตศิลป์ศึกษา คณะมัณฑนศิลป์",
+   "short_label": "SU007 ประยุกตศิลป์ศึกษา คณะมัณฑนศิลป์",
+   "exam_subjects": []
+  },
+  {
+   "key": "a_lv_63",
+   "max_value": 100,
+   "label": "A-Level วิทยาศาสตร์ประยุกต์",
+   "short_label": "A-Level วิทย์ทั่วไป",
+   "exam_subjects": [
+    "a_lv_63"
+   ]
+  },
+  {
+   "key": "a_lv_65",
+   "max_value": 100,
+   "label": "A-Level เคมี",
+   "short_label": "A-Level เคมี",
+   "exam_subjects": [
+    "a_lv_65"
+   ]
+  },
+  {
+   "key": "gpax",
+   "max_value": 4,
+   "label": "เกรดเฉลี่ย",
+   "short_label": "GPAX",
+   "exam_subjects": []
+  },
+  {
+   "key": "priority_score",
+   "max_value": 10,
+   "label": "ค่าน้ำหนักร้อยละของคะแนนของลำดับที่นักเรียนเลือก",
+   "short_label": "คะแนนลำดับการเลือก",
+   "exam_subjects": []
+  },
+  {
+   "key": "mu002",
+   "max_value": 100,
+   "label": "วิชาเฉพาะ ม.มหิดล วิชาออกแบบ",
+   "short_label": "MU002 ออกแบบ",
+   "exam_subjects": []
+  },
+  {
+   "key": "tu072",
+   "max_value": 35,
+   "label": "วิชาเฉพาะ ม.ธรรมศาสตร์ วิชาความถนัดทางออกแบบแฟชั่น",
+   "short_label": "TU072 ออกแบบแฟชั่น",
+   "exam_subjects": []
+  },
+  {
+   "key": "cutep",
+   "max_value": 120,
+   "label": "CU-TEP (Chulalongkorn University Test of English Proficiency) จุฬาลงกรณ์มหาวิทยาลัย",
+   "short_label": "CU-TEP",
+   "exam_subjects": []
+  },
+  {
+   "key": "a_lv_61",
+   "max_value": 100,
+   "label": "A-Level คณิตศาสตร์ประยุกต์ 1 (พื้นฐาน+เพิ่มเติม)",
+   "short_label": "A-Level คณิต1",
+   "exam_subjects": [
+    "a_lv_61"
+   ]
+  },
+  {
+   "key": "gpa26",
+   "max_value": 4,
+   "label": "เกรดเฉลี่ยกลุ่มสาระฯศิลปะ",
+   "short_label": "GPA ศิลปะ",
+   "exam_subjects": []
+  },
+  {
+   "key": "tu005",
+   "max_value": 100,
+   "label": "วิชาเฉพาะ ม.ธรรมศาสตร์ วิชาความถนัดเฉพาะเชิงวิชาชีพสังคมสงเคราะห์",
+   "short_label": "TU005 สังคมสงเคราะห์",
+   "exam_subjects": []
+  },
+  {
+   "key": "toeic",
+   "max_value": 990,
+   "label": "คะแนนขั้นต่ำ TOEIC (Test of English for International Communication)",
+   "short_label": "TOEIC",
+   "exam_subjects": []
+  },
+  {
+   "key": "swu_set",
+   "max_value": 1000,
+   "label": "SWU-SET วิชาภาษาอังกฤษ (Srinakharinwifot University Standardized english test (SWU-SET)) มหาวิทยาลัยศรีนครินทรวิโรฒ",
+   "short_label": "SWU-SET",
+   "exam_subjects": []
+  },
+  {
+   "key": "su006",
+   "max_value": 100,
+   "label": "วิชาเฉพาะ ม.ศิลปากร วิชาออกแบบผลิตภัณฑ์ คณะมัณฑนศิลป์",
+   "short_label": "SU006 ออกแบบผลิตภัณฑ์ คณะมัณฑนศิลป์",
+   "exam_subjects": []
+  },
+  {
+   "key": "su011",
+   "max_value": 100,
+   "label": "วิชาเฉพาะ ม.ศิลปากร วิชาการวิเคราะห์ทางสังคมศาสตร์ คณะอักษรศาสตร",
+   "short_label": "SU011 การวิเคราะห์ทางสังคมศาสตร์ คณะอักษรศาสตร",
+   "exam_subjects": []
+  },
+  {
+   "key": "tu082",
+   "max_value": 30,
+   "label": "วิชาเฉพาะ ม.ธรรมศาสตร์ วิชาปฏิบัติทางการละคอน (Audition)",
+   "short_label": "TU082 AUDITION",
+   "exam_subjects": []
+  },
+  {
+   "key": "su010",
+   "max_value": 100,
+   "label": "วิชาเฉพาะ ม.ศิลปากร วิชาออกแบบเครื่องแต่งกาย คณะมัณฑนศิลป์",
+   "short_label": "SU010 ออกแบบเครื่องแต่งกาย คณะมัณฑนศิลป์",
+   "exam_subjects": []
+  },
+  {
+   "key": "tpat22",
+   "max_value": 100,
+   "label": "ดนตรี (TPAT22)",
+   "short_label": "TPAT22",
+   "exam_subjects": [
+    "tpat2"
+   ]
+  },
+  {
+   "key": "vnet_512",
+   "max_value": 100,
+   "label": "วิชา สมรรถนะภาษาอังกฤษ",
+   "short_label": "VNET512 ภาษาอังกฤษ",
+   "exam_subjects": []
+  },
+  {
+   "key": "mu001",
+   "max_value": 100,
+   "label": "วิชาเฉพาะ ม.มหิดล วิชาวาดเส้น",
+   "short_label": "MU001 วาดเส้น",
+   "exam_subjects": []
+  },
+  {
+   "key": "gsat",
+   "max_value": 1600,
+   "label": "วิชา GSAT รวม",
+   "short_label": "GSAT",
+   "exam_subjects": []
+  },
+  {
+   "key": "tu006",
+   "max_value": 100,
+   "label": "วิชาความถนัดทางรัฐศาสตร์ และเรียงความ สาขาวิชาการเมืองและการระหว่างประเทศ (หลักสูตรนานาชาติ)",
+   "short_label": "TU006 ความถนัดทางรัฐศาสตร์ และเรียงความ",
+   "exam_subjects": []
+  },
+  {
+   "key": "netsat_lang_en",
+   "max_value": 100,
+   "label": "ความฉลาดรู้ทั่วไป ด้านภาษาอังกฤษ (จัดสอบโดยมหาวิทยาลัยขอนแก่น)",
+   "short_label": "NETSAT LANG ENG",
+   "exam_subjects": []
+  },
+  {
+   "key": "cuaat",
+   "max_value": 1600,
+   "label": "Chulalongkorn University Academic Aptitude Test",
+   "short_label": "CU-AAT",
+   "exam_subjects": []
+  },
+  {
+   "key": "cutad",
+   "max_value": 100,
+   "label": "Chulalongkorn University Test of Aptitude in Design",
+   "short_label": "CU-TAD",
+   "exam_subjects": []
+  },
+  {
+   "key": "cuats",
+   "max_value": 1600,
+   "label": "Chulalongkorn University Aptitude Test for Science",
+   "short_label": "CU-ATS",
+   "exam_subjects": []
+  },
+  {
+   "key": "cutep_spk",
+   "max_value": 150,
+   "label": "CU-TEP & SPEAKING ",
+   "short_label": "CU-TEP & Speaking",
+   "exam_subjects": []
+  },
+  {
+   "key": "portfolio",
+   "max_value": 100,
+   "label": "คะแนนแฟ้มสะสมผลงาน",
+   "short_label": "Portfolio",
+   "exam_subjects": []
+  },
+  {
+   "key": "interview",
+   "max_value": 100,
+   "label": "คะแนนสอบสัมภาษณ์",
+   "short_label": "interview",
+   "exam_subjects": []
+  }
+ ]
+}
