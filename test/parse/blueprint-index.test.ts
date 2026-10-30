@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { findSubjectPageUrls } from "../../src/parse/blueprint-index.ts";
 
-test("เก็บเฉพาะลิงก์หน้าวิชา ไม่ซ้ำ และเติมโดเมนให้ลิงก์สัมพัทธ์", () => {
+test("keeps only unique subject page links and makes relative links absolute", () => {
   const html = `
     <a href="/blueprint/">หน้ารวม</a>
     <a href="/blueprint/tgat1-91/">TGAT1</a>

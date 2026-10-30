@@ -3,7 +3,7 @@ import { test } from "node:test";
 import { setTimeout as sleep } from "node:timers/promises";
 import { mapWithConcurrency } from "../../src/shared/map-with-concurrency.ts";
 
-test("ผลลัพธ์เรียงตามลำดับเดิม และทำพร้อมกันไม่เกิน limit", async () => {
+test("keeps input order and runs at most `limit` at once", async () => {
   let running = 0, peak = 0;
   const result = await mapWithConcurrency([30, 10, 20, 5, 15], 2, async (ms, i) => {
     peak = Math.max(peak, ++running);
@@ -15,6 +15,6 @@ test("ผลลัพธ์เรียงตามลำดับเดิม �
   assert.equal(peak, 2);
 });
 
-test("รายการว่าง", async () => {
+test("empty list", async () => {
   assert.deepEqual(await mapWithConcurrency([], 5, async x => x), []);
 });

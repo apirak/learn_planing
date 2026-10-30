@@ -3,7 +3,7 @@ import { test } from "node:test";
 import { parseBlueprintPage, scoreKeyFromSlug, textOf } from "../../src/parse/blueprint-page.ts";
 import * as cheerio from "cheerio";
 
-// โครงสร้างย่อจากหน้า a-level-61-math1 จริง (ข้อความสมมติ)
+// Trimmed-down structure of the real a-level-61-math1 page (made-up text)
 const PAGE = `
 <h1>A-Level <b>Math1</b></h1>
 <div class="bp-intro"><p>คำอธิบาย</p></div>
@@ -38,19 +38,19 @@ const PAGE = `
 
 const subject = parseBlueprintPage(PAGE, "https://www.mytcas.com/blueprint/a-level-61-math1/");
 
-test("textOf เว้นวรรคระหว่าง text node ตามลำดับในเอกสาร", () => {
+test("textOf joins text nodes with spaces in document order", () => {
   const $ = cheerio.load("<p> a <b>b</b>c <!-- x --> </p>");
   assert.equal(textOf($("p")), "a b c");
   assert.equal(textOf($("h1")), "");
 });
 
-test("scoreKeyFromSlug แปลง slug เป็น key ใน scores", () => {
+test("scoreKeyFromSlug converts a page slug to a scores key", () => {
   assert.equal(scoreKeyFromSlug("a-level-61-math1"), "a_lv_61");
   assert.equal(scoreKeyFromSlug("tgat1-91"), "tgat1");
   assert.equal(scoreKeyFromSlug("tpat3-30"), "tpat3");
 });
 
-test("ข้อมูลวิชา", () => {
+test("subject info", () => {
   assert.equal(subject.slug, "a-level-61-math1");
   assert.equal(subject.score_key, "a_lv_61");
   assert.equal(subject.code, "61");
@@ -58,7 +58,7 @@ test("ข้อมูลวิชา", () => {
   assert.equal(subject.intro, "คำอธิบาย");
 });
 
-test("โครงสร้างข้อสอบ: ส่วน (มีหรือไม่มีจำนวนข้อ), ประเภท, เวลา, หมายเหตุ", () => {
+test("exam structure: sections (with or without question counts), format, duration, notes", () => {
   assert.deepEqual(subject.sections, [
     { title: "ส่วนที่ 1 : พีชคณิต", topics: ["1) เซต", "2) ตรรกศาสตร์"], questions: "15 - 17" },
     { title: "ส่วนที่ 2 : การอ่าน", topics: ["อ่านจับใจความ"], questions: null },
@@ -68,24 +68,24 @@ test("โครงสร้างข้อสอบ: ส่วน (มีหร�
   assert.equal(subject.notes, "1) บูรณาการ 2) ดู เอกสาร ประกอบ");
 });
 
-test("จำนวนข้อ: ข้าม groupnum ว่าง, ใช้แถว 'รวม' เมื่อไม่มีกล่อง 'จำนวนข้อ'", () => {
+test("question counts: skips empty groupnum, uses the 'รวม' (total) row when there is no 'จำนวนข้อ' box", () => {
   assert.deepEqual(subject.question_groups, [{ label: "ปรนัย / 75 คะแนน", questions: 25 }]);
   assert.equal(subject.total_questions, 30);
   assert.equal(subject.full_score, 100);
 });
 
-test("กล่อง 'จำนวนข้อ' มาก่อนแถว 'รวม'", () => {
+test("the 'จำนวนข้อ' box takes precedence over the 'รวม' row", () => {
   const page = PAGE.replace(`<div class="stt-total">`,
     `<div class="stt-total"><div class="text">จำนวนข้อ</div><div class="num"><b>80</b></div></div><div class="stt-total">`);
   assert.equal(parseBlueprintPage(page, "https://www.mytcas.com/blueprint/a-level-61-math1/").total_questions, 80);
 });
 
-test("ตัวอย่างข้อสอบ: โจทย์, รูป, ตัวเลือก, เฉลย", () => {
+test("example question: prompt, images, choices, answer", () => {
   assert.deepEqual(subject.examples, [{
     title: "ตัวอย่างที่ 1",
     answer_type: "choice",
-    question: "พิจารณาข้อความ", // ไม่รวมหัวข้อ h2/h3, ตัวเลือก, ปุ่ม และเฉลย
-    question_images: ["https://assets.mytcas.com/q.png"], // ข้ามรูป data:
+    question: "พิจารณาข้อความ", // excludes h2/h3 headings, choices, button and answer
+    question_images: ["https://assets.mytcas.com/q.png"], // skips data: images
     choices: [
       { no: 1, text: "ก ถูก", images: [], is_answer: false },
       { no: 2, text: "ข ถูก", images: ["https://x/c.png"], is_answer: true },

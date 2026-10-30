@@ -7,7 +7,7 @@ import { fetchJson, fetchJsonIfExists, fetchText } from "../../src/shared/http.t
 let flakyCalls = 0;
 const server = createServer((req, res) => {
   if (req.url === "/plain") return res.end("สวัสดี");
-  if (req.url === "/gzip-no-header") return res.end(gzipSync('{"a":1}')); // แบบไฟล์บน S3
+  if (req.url === "/gzip-no-header") return res.end(gzipSync('{"a":1}')); // like files on S3
   if (req.url === "/gzip-header") {
     res.setHeader("Content-Encoding", "gzip");
     return res.end(gzipSync('{"b":2}'));
@@ -19,22 +19,22 @@ await new Promise<void>(resolve => server.listen(0, "127.0.0.1", resolve));
 const base = `http://127.0.0.1:${(server.address() as { port: number }).port}`;
 after(() => server.close());
 
-test("อ่านข้อความ utf-8", async () => {
+test("reads utf-8 text", async () => {
   assert.equal(await fetchText(`${base}/plain`), "สวัสดี");
 });
 
-test("แตก gzip ทั้งแบบมีและไม่มี Content-Encoding", async () => {
+test("decompresses gzip with or without Content-Encoding", async () => {
   assert.deepEqual(await fetchJson(`${base}/gzip-no-header`), { a: 1 });
   assert.deepEqual(await fetchJson(`${base}/gzip-header`), { b: 2 });
 });
 
-test("403/404 = ไม่มีไฟล์: fetchJsonIfExists คืน null, fetchText โยน error", async () => {
+test("403/404 means missing: fetchJsonIfExists returns null, fetchText throws", async () => {
   assert.equal(await fetchJsonIfExists(`${base}/missing-s3`), null);
   assert.equal(await fetchJsonIfExists(`${base}/missing`), null);
   await assert.rejects(fetchText(`${base}/missing`), /ไม่พบ/);
 });
 
-test("5xx ลองใหม่", async () => {
+test("retries on 5xx", async () => {
   assert.equal(await fetchText(`${base}/flaky`), "ok");
   assert.equal(flakyCalls, 2);
 });

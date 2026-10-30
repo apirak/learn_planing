@@ -3,7 +3,7 @@ import { test } from "node:test";
 import type { AdmissionRound } from "../../src/shared/types.ts";
 import { addRoundsWithData } from "../../src/build/universities-with-rounds.ts";
 
-test("rounds_with_data = รอบที่มีข้อมูลจริง เรียงจากน้อยไปมาก ไม่ซ้ำ", () => {
+test("rounds_with_data lists rounds that have data, sorted ascending, without duplicates", () => {
   const r = (university_id: string, round: number) =>
     ({ program_id: "P", university_id, type: `${round}_2570`, round }) as AdmissionRound;
   const result = addRoundsWithData(
