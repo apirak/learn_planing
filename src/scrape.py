@@ -1,7 +1,7 @@
 """ดึงข้อมูล TCAS จาก mytcas เป็น JSON 4 ไฟล์ใน data/
 
-    python3 scrape.py          # ดึงทั้งหมด
-    python3 scrape.py browse   # สร้าง browse.json ใหม่จากไฟล์ใน data/ ไม่ดึงเว็บ
+    python3 src/scrape.py          # ดึงทั้งหมด
+    python3 src/scrape.py browse   # สร้าง browse.json ใหม่จากไฟล์ใน data/ ไม่ดึงเว็บ
 
 - universities.json   สถาบัน (S3 ของ course.mytcas.com)
 - programs.json       หลักสูตรทั้งหมด (S3)
@@ -28,7 +28,7 @@ from bs4 import BeautifulSoup
 
 S3 = "https://my-tcas.s3.ap-southeast-1.amazonaws.com/mytcas"
 BLUEPRINT = "https://www.mytcas.com/blueprint/"
-OUT = Path(__file__).parent / "data"
+OUT = Path(__file__).parent.parent / "data"
 RAW_ROUNDS = OUT / "raw" / "rounds"
 WORKERS = 5
 

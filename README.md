@@ -80,7 +80,7 @@ Course     { id, subject_id, level: basic|content|practice, hours }
 
 ## data/browse.json (ข้อมูลของ ui/)
 
-สร้างใหม่โดยไม่ดึงเว็บ: `python3 scrape.py browse` · `fetched_at` = เวลาที่ดึง programs.json · `count` = จำนวนหลักสูตร
+สร้างใหม่โดยไม่ดึงเว็บ: `python3 src/scrape.py browse` · `fetched_at` = เวลาที่ดึง programs.json · `count` = จำนวนหลักสูตร
 
 ```
 data.groups        { "30": "วิศวกรรมศาสตร์" }               กลุ่มสาขา (ใช้เป็น "คณะ") 15 กลุ่ม
@@ -99,7 +99,7 @@ data.programs      [{ id, name, type, uni, group, field, exams: { subject: weigh
 
 ## TODO
 
-- [x] ดึงข้อมูลหลักสูตร + วิชาสอบจาก mytcas — `python3 scrape.py` → `data/` (ต้องมี `beautifulsoup4`)
+- [x] ดึงข้อมูลหลักสูตร + วิชาสอบจาก mytcas — `python3 src/scrape.py` → `data/` (ต้องมี `beautifulsoup4`)
 - [x] UI ดูข้อมูล (มหาวิทยาลัย | คณะ/กลุ่มสาขา | สาขา | หลักสูตร กรองกันได้ทุกทิศ → วิชาที่ต้องสอบ) — `python3 -m http.server 8765` แล้วเปิด <http://localhost:8765/ui/>
 - [ ] ตารางสอบ TGAT/TPAT และ A-Level ปีการศึกษาปัจจุบัน
 - [ ] map คอร์สของเรากับวิชาสอบและระดับ
