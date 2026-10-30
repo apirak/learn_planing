@@ -50,6 +50,8 @@
   .brand::before { content: "T"; display: grid; place-items: center; width: 32px; height: 32px; border-radius: var(--r-sm);
     background: var(--primary); color: var(--primary-text); font-weight: 700; }
   .brand span { font-size: var(--s1); font-weight: 400; color: var(--muted); }
+  .tools { display: flex; align-items: center; gap: 12px; white-space: nowrap; }
+  .textbtn[hidden] { display: none; }
   .theme { display: flex; gap: 2px; padding: 3px; background: var(--card); border: 1px solid var(--line); border-radius: 999px; }
   .theme button { border: 0; background: none; padding: 4px 12px; border-radius: 999px; font-size: var(--s1); line-height: 18px; color: var(--muted); cursor: pointer; }
   .theme button:hover { color: var(--ink); }
@@ -135,7 +137,11 @@
   }
   @media (max-width: 640px) {
     :root { --gut: 12px; }
+    .top .brand { font-size: 0; gap: 0; }
     .top .brand span { display: none; }
+    .top .brand::before { font-size: var(--s3); }
+    .tools { gap: 8px; }
+    .theme button { padding-inline: 8px; }
     .result h1 { font-size: var(--s4); line-height: 28px; }
     .browser { grid-template-columns: 1fr; padding: 6px; }
     .item { padding-block: 10px; }
@@ -147,8 +153,11 @@
 <body>
 <header class="top">
   <p class="brand">TCAS Browser<span id="fetched"></span></p>
-  <div class="theme" role="group" aria-label="ธีม">
-    <button type="button" data-theme="system">ตามระบบ</button><button type="button" data-theme="light">สว่าง</button><button type="button" data-theme="dark">มืด</button>
+  <div class="tools">
+    <button class="textbtn" id="reset" hidden>ล้างตัวเลือกทั้งหมด</button>
+    <div class="theme" role="group" aria-label="ธีม">
+      <button type="button" data-theme="system">ตามระบบ</button><button type="button" data-theme="light">สว่าง</button><button type="button" data-theme="dark">มืด</button>
+    </div>
   </div>
 </header>
 
@@ -162,7 +171,7 @@
 
   <main class="result" aria-live="polite">
     <h1 id="headline">กำลังโหลดข้อมูล…</h1>
-    <p class="meta"><span id="summary"></span><button class="textbtn" id="reset" hidden>ล้างตัวเลือกทั้งหมด</button></p>
+    <p class="meta"><span id="summary"></span></p>
     <p class="status" id="status"></p>
     <div id="exams"></div>
   </main>
