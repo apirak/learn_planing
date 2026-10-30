@@ -51,7 +51,6 @@
     background: var(--primary); color: var(--primary-text); font-weight: 700; }
   .brand span { font-size: var(--s1); font-weight: 400; color: var(--muted); }
   .tools { display: flex; align-items: center; gap: 12px; white-space: nowrap; }
-  .textbtn[hidden] { display: none; }
   .theme { display: flex; gap: 2px; padding: 3px; background: var(--card); border: 1px solid var(--line); border-radius: 999px; }
   .theme button { border: 0; background: none; padding: 4px 12px; border-radius: 999px; font-size: var(--s1); line-height: 18px; color: var(--muted); cursor: pointer; }
   .theme button:hover { color: var(--ink); }
@@ -89,7 +88,8 @@
   .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin: 6px 0 0; color: var(--muted); font-variant-numeric: tabular-nums; }
   .textbtn { border: 1px solid var(--line); background: var(--tile); padding: 2px 12px; border-radius: 999px;
     font-size: var(--s1); color: var(--ink); cursor: pointer; }
-  .textbtn:hover { background: var(--hover); }
+  .textbtn:hover:not(:disabled) { background: var(--hover); }
+  .textbtn:disabled { color: var(--muted); opacity: .6; cursor: default; }
   .status { margin: 12px 0 0; padding: 8px 14px; background: var(--tile); border: 1px solid var(--line); border-radius: var(--r-sm);
     font-size: var(--s1); line-height: 18px; }
   .status:empty { display: none; }
@@ -154,7 +154,7 @@
 <header class="top">
   <p class="brand">TCAS Browser<span id="fetched"></span></p>
   <div class="tools">
-    <button class="textbtn" id="reset" hidden>ล้างตัวเลือกทั้งหมด</button>
+    <button class="textbtn" id="reset" disabled>ล้างตัวเลือกทั้งหมด</button>
     <div class="theme" role="group" aria-label="ธีม">
       <button type="button" data-theme="system">ตามระบบ</button><button type="button" data-theme="light">สว่าง</button><button type="button" data-theme="dark">มืด</button>
     </div>
@@ -329,7 +329,7 @@ function render(focus) {
       list.scrollTop = b.offsetTop - list.clientHeight / 2;
   }
   renderExams();
-  document.getElementById("reset").hidden = KEYS.every(k => sel[k] === null);
+  document.getElementById("reset").disabled = KEYS.every(k => sel[k] === null);
   if (focus) document.querySelector(`#${focus} [aria-pressed="true"]`)?.focus();
 }
 
