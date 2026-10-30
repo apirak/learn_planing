@@ -21,7 +21,7 @@
   header { padding: 16px 20px 8px; }
   h1 { font-size: 18px; margin: 0; }
   .summary { color: var(--muted); font-size: 13px; margin-top: 2px; }
-  .browser { display: grid; grid-template-columns: 1fr 1.2fr 1.2fr 1.6fr; gap: 1px;
+  .browser { display: grid; grid-template-columns: 1fr 1.2fr 1.6fr; gap: 1px;
     background: var(--line); border-block: 1px solid var(--line); }
   .col { background: var(--panel); display: flex; flex-direction: column; min-width: 0; }
   .col h2 { font-size: 12px; font-weight: 600; color: var(--muted); margin: 0; padding: 8px 12px;
@@ -37,7 +37,9 @@
   .item .name { min-width: 0; }
   .item .sub { display: block; color: var(--muted); font-size: 12px; }
   .item.all { font-weight: 600; }
-  main { padding: 16px 20px 32px; }
+  main { padding: 16px 20px 32px; display: grid; grid-template-columns: 320px 1fr; gap: 16px; align-items: start; }
+  main .col { border: 1px solid var(--line); }
+  main .list { height: 480px; }
   main h2 { font-size: 16px; margin: 0 0 4px; }
   .note { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
   table { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--line); }
@@ -48,13 +50,14 @@
   .tag { display: inline-block; padding: 1px 6px; border-radius: 4px; font-size: 11px; background: var(--bar-bg); white-space: nowrap; }
   .tag.must { background: #ffd60a; color: #1d1d1b; }
   .tag.often { background: var(--bar); color: var(--sel-text); }
+  .pct { font-variant-numeric: tabular-nums; }
   .bar { height: 8px; background: var(--bar-bg); border-radius: 4px; min-width: 80px; }
   .bar > span { display: block; height: 100%; background: var(--bar); border-radius: 4px; }
   .empty { padding: 24px; text-align: center; color: var(--muted); background: var(--panel); border: 1px solid var(--line); }
   a { color: var(--sel); }
   @media (max-width: 760px) {
     header, main { padding-inline: 16px; }
-    .browser { grid-template-columns: 1fr; }
+    .browser, main { grid-template-columns: 1fr; }
     .list { height: 200px; }
     .hide-sm { display: none; }
   }
@@ -67,61 +70,59 @@
 </header>
 
 <div class="browser">
-  <section class="col"><h2>กลุ่มสาขา</h2><div class="list" id="group"></div></section>
+  <section class="col"><h2>คณะ (กลุ่มสาขา)</h2><div class="list" id="group"></div></section>
   <section class="col"><h2>สาขา</h2><div class="list" id="field"></div></section>
-  <section class="col"><h2>มหาวิทยาลัย</h2><div class="list" id="uni"></div></section>
-  <section class="col"><h2>หลักสูตร</h2><div class="list" id="program"></div></section>
+  <section class="col"><h2>หลักสูตร</h2><div class="list" id="name"></div></section>
 </div>
 
 <main>
-  <h2>รายการที่มีโอกาสต้องสอบ</h2>
-  <p class="note" id="examNote"></p>
-  <div id="exams"></div>
+  <section class="col"><h2>มหาวิทยาลัย</h2><div class="list" id="uni"></div></section>
+  <div>
+    <h2 id="examTitle">รายการที่มีโอกาสต้องสอบ</h2>
+    <p class="note" id="examNote"></p>
+    <div id="exams"></div>
+  </div>
 </main>
 
 <script>
-const COLS = ["group", "field", "uni", "program"];
-const sel = { group: null, field: null, uni: null, program: null };
+// แบบ A: คอลัมน์ คณะ → สาขา → หลักสูตร (ชื่อ, รวมข้ามมหาวิทยาลัย) แล้วเลือกมหาวิทยาลัยด้านล่าง
+const KEYS = ["group", "field", "name", "uni"];
+const sel = { group: null, field: null, name: null, uni: null };
 let D, fetchedAt;
 
 const th = (a, b) => a.localeCompare(b, "th");
 const label = {
   group: id => D.groups[id],
   field: id => D.fields[id],
+  name: id => id,
   uni: id => D.universities[id] || id,
 };
 
-// หลักสูตรที่ผ่านตัวกรองของคอลัมน์ก่อนหน้า `upto` (ไม่รวมคอลัมน์นั้นเอง)
+// หลักสูตรที่ผ่านตัวกรองของ key ก่อนหน้า `upto` (ไม่รวม key นั้นเอง); ไม่ใส่ = ทุกตัวกรอง
 function filtered(upto) {
-  const keys = COLS.slice(0, COLS.indexOf(upto));
-  return D.programs.filter(p => keys.every(k => sel[k] === null || (k === "program" ? p.id : p[k]) === sel[k]));
+  const keys = upto ? KEYS.slice(0, KEYS.indexOf(upto)) : KEYS;
+  return D.programs.filter(p => keys.every(k => sel[k] === null || p[k] === sel[k]));
 }
 
-function renderCol(col) {
-  const progs = filtered(col);
-  const el = document.getElementById(col);
-  let items;
-  if (col === "program") {
-    items = progs.map(p => ({ id: p.id, name: p.name, sub: `${D.universities[p.uni] || p.uni} · ${p.type}` }))
-      .sort((a, b) => th(a.name, b.name));
-  } else {
-    const count = {};
-    for (const p of progs) count[p[col]] = (count[p[col]] || 0) + 1;
-    items = Object.entries(count).map(([id, n]) => ({ id, n, name: label[col](id) })).sort((a, b) => th(a.name, b.name));
-  }
+function renderList(key) {
+  const count = {};
+  for (const p of filtered(key)) count[p[key]] = (count[p[key]] || 0) + 1;
+  const items = Object.entries(count).map(([id, n]) => ({ id, n, name: label[key](id) }))
+    .sort(key === "uni" ? (a, b) => b.n - a.n || th(a.name, b.name) : (a, b) => th(a.name, b.name));
   const btn = (id, html, cls = "") =>
-    `<button class="item ${cls}" data-col="${col}" data-id="${id ?? ""}" aria-pressed="${sel[col] === id}">${html}</button>`;
-  el.innerHTML = btn(null, `<span class="name">ทั้งหมด</span><span class="n">${items.length}</span>`, "all") +
-    items.map(i => btn(i.id,
-      `<span class="name">${esc(i.name)}${i.sub ? `<span class="sub">${esc(i.sub)}</span>` : ""}</span>` +
-      (i.n ? `<span class="n">${i.n}</span>` : ""))).join("");
+    `<button class="item ${cls}" data-key="${key}" data-id="${esc(id ?? "")}" aria-pressed="${sel[key] === id}">${html}</button>`;
+  document.getElementById(key).innerHTML =
+    btn(null, `<span class="name">ทั้งหมด</span><span class="n">${items.length}</span>`, "all") +
+    items.map(i => btn(i.id, `<span class="name">${esc(i.name)}</span><span class="n">${i.n}</span>`)).join("");
 }
 
 function renderExams() {
-  const progs = filtered("program").filter(p => sel.program === null || p.id === sel.program);
+  const progs = filtered();
   const unis = new Set(progs.map(p => p.uni)).size;
   document.getElementById("summary").textContent =
     `${progs.length.toLocaleString()} หลักสูตร · ${unis} มหาวิทยาลัย · ข้อมูล ณ ${fetchedAt}`;
+  document.getElementById("examTitle").textContent =
+    "รายการที่มีโอกาสต้องสอบ" + (sel.uni ? ` · ${label.uni(sel.uni)}` : "");
 
   const stat = {};
   let none = 0;
@@ -129,34 +130,39 @@ function renderExams() {
     const ex = Object.entries(p.exams);
     if (!ex.length) none++;
     for (const [s, w] of ex) {
-      const st = stat[s] ||= { n: 0, wSum: 0, wN: 0 };
+      const st = stat[s] ||= { n: 0, ws: [] };
       st.n++;
-      if (w > 0) { st.wSum += w; st.wN++; }
+      if (w > 0) st.ws.push(w); // 0 = ใช้แค่คะแนนขั้นต่ำ
     }
   }
   const rows = Object.entries(stat).sort((a, b) => b[1].n - a[1].n || th(a[0], b[0]));
   document.getElementById("examNote").textContent =
-    `วิชาที่อยู่ในสัดส่วนคะแนนหรือคะแนนขั้นต่ำ ของรอบใดรอบหนึ่ง (ยังไม่มีข้อมูลรอบ 4)` +
+    `จาก ${progs.length.toLocaleString()} หลักสูตร · วิชาที่อยู่ในสัดส่วนคะแนนหรือคะแนนขั้นต่ำ ของรอบใดรอบหนึ่ง (ยังไม่มีข้อมูลรอบ 4)` +
     (none ? ` · ${none.toLocaleString()} หลักสูตรไม่ใช้คะแนนสอบ (ใช้ portfolio / เกรด)` : "");
   const out = document.getElementById("exams");
   if (!rows.length) { out.innerHTML = `<div class="empty">ไม่มีวิชาที่ต้องสอบในหลักสูตรที่เลือก</div>`; return; }
+  const range = ws => {
+    if (!ws.length) return "ขั้นต่ำ";
+    const lo = Math.min(...ws), hi = Math.max(...ws);
+    return lo === hi ? `${lo}%` : `${lo}–${hi}%`;
+  };
   out.innerHTML = `<table>
-    <thead><tr><th>วิชา</th><th class="num">หลักสูตร</th><th class="hide-sm">สัดส่วน</th><th>โอกาส</th><th class="num">น้ำหนักเฉลี่ย</th></tr></thead>
+    <thead><tr><th>วิชา</th><th class="hide-sm">โอกาสต้องสอบ</th><th class="num">หลักสูตร</th><th>โอกาส</th><th class="num">สัดส่วน</th></tr></thead>
     <tbody>${rows.map(([s, st]) => {
       const pct = st.n / progs.length * 100;
       return `<tr>
         <td>${esc(D.subjects[s] || s)} <span class="key">${s}</span></td>
-        <td class="num">${st.n.toLocaleString()} <span class="key">(${pct.toFixed(0)}%)</span></td>
         <td class="hide-sm"><div class="bar"><span style="width:${pct}%"></span></div></td>
+        <td class="num">${st.n.toLocaleString()} <span class="key">(${pct.toFixed(0)}%)</span></td>
         <td>${pct >= 95 ? '<span class="tag must">ต้องสอบ</span>' : pct >= 50 ? '<span class="tag often">ส่วนใหญ่</span>' : '<span class="tag">บางที่</span>'}</td>
-        <td class="num">${st.wN ? (st.wSum / st.wN).toFixed(0) + "%" : "ขั้นต่ำ"}</td>
+        <td class="num">${range(st.ws)}</td>
       </tr>`;
     }).join("")}</tbody></table>` +
-    (sel.program ? `<p class="note">ดูรายละเอียดที่ <a href="https://course.mytcas.com/programs/${sel.program}" target="_blank" rel="noopener">course.mytcas.com</a></p>` : "");
+    (progs.length === 1 ? `<p class="note">ดูรายละเอียดที่ <a href="https://course.mytcas.com/programs/${progs[0].id}" target="_blank" rel="noopener">course.mytcas.com</a></p>` : "");
 }
 
 function render(from = "group") {
-  COLS.slice(COLS.indexOf(from)).forEach(renderCol);
+  KEYS.slice(KEYS.indexOf(from)).forEach(renderList);
   renderExams();
 }
 
@@ -164,14 +170,14 @@ function esc(s) {
   return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 }
 
-document.querySelector(".browser").addEventListener("click", e => {
+document.addEventListener("click", e => {
   const b = e.target.closest(".item");
   if (!b) return;
-  const col = b.dataset.col;
-  sel[col] = b.dataset.id || null;
-  COLS.slice(COLS.indexOf(col) + 1).forEach(c => sel[c] = null); // เปลี่ยนคอลัมน์บน = ล้างคอลัมน์ล่าง
-  render(col);
-  document.querySelector(`#${col} [aria-pressed="true"]`)?.focus();
+  const key = b.dataset.key;
+  sel[key] = b.dataset.id || null;
+  KEYS.slice(KEYS.indexOf(key) + 1).forEach(k => sel[k] = null); // เปลี่ยนตัวบน = ล้างตัวล่าง
+  render(key);
+  document.querySelector(`#${key} [aria-pressed="true"]`)?.focus();
 });
 
 fetch("../data/browse.json").then(r => r.json()).then(j => {

@@ -81,7 +81,7 @@ Course     { id, subject_id, level: basic|content|practice, hours }
 ## TODO
 
 - [x] ดึงข้อมูลหลักสูตร + วิชาสอบจาก mytcas — `python3 scrape.py` → `data/` (ต้องมี `beautifulsoup4`)
-- [x] UI ดูข้อมูล (กลุ่มสาขา → สาขา → มหาวิทยาลัย → หลักสูตร → วิชาที่ต้องสอบ) — `python3 -m http.server 8765` แล้วเปิด <http://localhost:8765/ui/>
+- [x] UI ดูข้อมูล (คณะ/กลุ่มสาขา → สาขา → หลักสูตร → มหาวิทยาลัย → วิชาที่ต้องสอบ) — `python3 -m http.server 8765` แล้วเปิด <http://localhost:8765/ui/>
 - [ ] ตารางสอบ TGAT/TPAT และ A-Level ปีการศึกษาปัจจุบัน
 - [ ] map คอร์สของเรากับวิชาสอบและระดับ
 - [ ] นิยามเกณฑ์ "ความถนัด" (แบบทดสอบ / เกรด / ประเมินตนเอง)
