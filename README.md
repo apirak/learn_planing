@@ -78,6 +78,25 @@ Subject    { id, name, exam_date }
 Course     { id, subject_id, level: basic|content|practice, hours }
 ```
 
+## data/browse.json (ข้อมูลของ ui/)
+
+สร้างใหม่โดยไม่ดึงเว็บ: `python3 scrape.py browse` · `fetched_at` = เวลาที่ดึง programs.json · `count` = จำนวนหลักสูตร
+
+```
+data.groups        { "30": "วิศวกรรมศาสตร์" }               กลุ่มสาขา (ใช้เป็น "คณะ") 15 กลุ่ม
+data.fields        { "30-05": "วิศวกรรมคอมพิวเตอร์" }       key = group-field (ชื่อซ้ำข้ามกลุ่มได้)
+data.universities  { "001": "จุฬาลงกรณ์มหาวิทยาลัย" }
+data.subjects      { "tgat1": "การสื่อสารภาษาอังกฤษ (TGAT1)" } เฉพาะวิชาที่มีหลักสูตรใช้
+data.programs      [{ id, name, type, uni, group, field, exams: { subject: weight } }]  1 แถวต่อ program_id
+```
+
+ความหมายของ `exams` (รวมทุกรอบรับ ยังไม่มีรอบ 4):
+
+- มี key = วิชาอยู่ในสัดส่วนคะแนน หรือคะแนนขั้นต่ำ ของรอบใดรอบหนึ่ง · `{}` = ไม่ใช้คะแนนสอบ (portfolio / เกรด)
+- `weight` = % สูงสุดในทุกรอบ · `0` = ใช้แค่คะแนนขั้นต่ำ ไม่มีสัดส่วน
+- key รวมถูกแตกเป็นวิชา: `tgat` 20% → tgat1/2/3 ขึ้น 20 ทุกตัว (= น้ำหนักของ TGAT ทั้งก้อน ไม่ใช่ต่อวิชา)
+- ผลรวมหลายวิชา (`cal_*` เช่น a_lv_61+a_lv_64+a_lv_82 = 100%) แบ่งน้ำหนักเท่า ๆ กัน → 33 ต่อวิชา
+
 ## TODO
 
 - [x] ดึงข้อมูลหลักสูตร + วิชาสอบจาก mytcas — `python3 scrape.py` → `data/` (ต้องมี `beautifulsoup4`)

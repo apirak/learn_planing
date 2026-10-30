@@ -1,6 +1,7 @@
 """ดึงข้อมูล TCAS จาก mytcas เป็น JSON 4 ไฟล์ใน data/
 
-    python3 scrape.py
+    python3 scrape.py          # ดึงทั้งหมด
+    python3 scrape.py browse   # สร้าง browse.json ใหม่จากไฟล์ใน data/ ไม่ดึงเว็บ
 
 - universities.json   สถาบัน (S3 ของ course.mytcas.com)
 - programs.json       หลักสูตรทั้งหมด (S3)
@@ -8,12 +9,14 @@
 - exam_subjects.json  โครงสร้างข้อสอบ + ตัวอย่างข้อสอบ (HTML ของ mytcas.com/blueprint)
 - score_keys.json     ความหมายของ key ใน scores (tgat, a_lv_61, gpax, ...) + วิชาใน exam_subjects ที่ต้องสอบ
 - program_exams.json  ต่อรอบรับ: องค์ประกอบคะแนน + สัดส่วน + คะแนนขั้นต่ำ (สร้างจาก admission_rounds)
+- browse.json         ไฟล์เล็กสำหรับ ui/ (schema ใน README)
 
 ไฟล์ดิบของ rounds เก็บใน data/raw/rounds/ — รันซ้ำจะข้ามที่โหลดแล้ว ลบโฟลเดอร์นี้ถ้าต้องการดึงใหม่ทั้งหมด
 """
 import gzip
 import json
 import re
+import sys
 import time
 import urllib.error
 import urllib.request
@@ -54,16 +57,16 @@ def fetch_json(url):
     return None if body is None else json.loads(body)
 
 
-def save(name, source, data):
+def save(name, source, data, count=None, fetched_at=None):
     OUT.mkdir(exist_ok=True)
     doc = {
-        "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "fetched_at": fetched_at or datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "source": source,
-        "count": len(data),
+        "count": len(data) if count is None else count,
         "data": data,
     }
     (OUT / name).write_text(json.dumps(doc, ensure_ascii=False, indent=1), encoding="utf-8")
-    print(f"{name}: {len(data)} records")
+    print(f"{name}: {doc['count']} records")
 
 
 # --- course.mytcas.com ------------------------------------------------------
@@ -162,7 +165,7 @@ def build_program_exams(rounds, score_keys):
 NOT_EXAM = ("gpa", "portfolio", "interview", "priority_score")  # เกณฑ์ที่ไม่ใช่การสอบ
 
 
-def build_browse(programs, program_exams, score_keys, universities):
+def build_browse(programs, program_exams, score_keys, universities, fetched_at=None):
     """ไฟล์เล็กไฟล์เดียวสำหรับ ui/ — 1 แถวต่อหลักสูตร + วิชาที่มีโอกาสต้องสอบ (อยู่ใน components หรือ min_scores)"""
     keymap = {k["key"]: k for k in score_keys}
 
@@ -205,7 +208,17 @@ def build_browse(programs, program_exams, score_keys, universities):
         "subjects": {s: (keymap.get(s) or {}).get("label", s) for s in sorted(used)},
         "programs": list(rows.values()),
     }
-    save("browse.json", "programs.json + program_exams.json + score_keys.json", data)
+    save("browse.json", "programs.json + program_exams.json + score_keys.json", data,
+         count=len(rows), fetched_at=fetched_at)
+
+
+def rebuild_browse():
+    """สร้าง browse.json ใหม่จากไฟล์ใน data/ โดยไม่ดึงเว็บ — fetched_at ใช้ของ programs.json"""
+    def load(name):
+        return json.loads((OUT / name).read_text(encoding="utf-8"))
+    programs = load("programs.json")
+    build_browse(programs["data"], load("program_exams.json")["data"], load("score_keys.json")["data"],
+                 load("universities.json")["data"], fetched_at=programs["fetched_at"])
 
 
 # --- mytcas.com/blueprint ---------------------------------------------------
@@ -335,4 +348,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    rebuild_browse() if sys.argv[1:] == ["browse"] else main()

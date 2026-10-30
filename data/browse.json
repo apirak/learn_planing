@@ -1,7 +1,7 @@
 {
- "fetched_at": "2026-10-30T08:53:42+00:00",
+ "fetched_at": "2026-10-30T08:34:20+00:00",
  "source": "programs.json + program_exams.json + score_keys.json",
- "count": 5,
+ "count": 4145,
  "data": {
   "groups": {
    "30": "วิศวกรรมศาสตร์",
