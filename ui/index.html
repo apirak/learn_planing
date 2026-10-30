@@ -21,7 +21,7 @@
   header { padding: 16px 20px 8px; }
   h1 { font-size: 18px; margin: 0; }
   .summary { color: var(--muted); font-size: 13px; margin-top: 2px; }
-  .browser { display: grid; grid-template-columns: 1fr 1.2fr 1.6fr; gap: 1px;
+  .browser { display: grid; grid-template-columns: 1.1fr 1fr 1.1fr 1.5fr; gap: 1px;
     background: var(--line); border-block: 1px solid var(--line); }
   .col { background: var(--panel); display: flex; flex-direction: column; min-width: 0; }
   .col h2 { font-size: 12px; font-weight: 600; color: var(--muted); margin: 0; padding: 8px 12px;
@@ -37,9 +37,8 @@
   .item .name { min-width: 0; }
   .item .sub { display: block; color: var(--muted); font-size: 12px; }
   .item.all { font-weight: 600; }
-  main { padding: 16px 20px 32px; display: grid; grid-template-columns: 320px 1fr; gap: 16px; align-items: start; }
-  main .col { border: 1px solid var(--line); }
-  main .list { height: 480px; }
+  main { padding: 16px 20px 32px; }
+  #reset { border: 0; background: none; padding: 0; margin-left: 8px; color: var(--sel); font: inherit; cursor: pointer; text-decoration: underline; }
   main h2 { font-size: 16px; margin: 0 0 4px; }
   .note { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
   table { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--line); }
@@ -57,7 +56,7 @@
   a { color: var(--sel); }
   @media (max-width: 760px) {
     header, main { padding-inline: 16px; }
-    .browser, main { grid-template-columns: 1fr; }
+    .browser { grid-template-columns: 1fr; }
     .list { height: 200px; }
     .hide-sm { display: none; }
   }
@@ -66,27 +65,25 @@
 <body>
 <header>
   <h1>TCAS Browser</h1>
-  <div class="summary" id="summary">กำลังโหลดข้อมูล…</div>
+  <div class="summary"><span id="summary">กำลังโหลดข้อมูล…</span><button id="reset" hidden>ล้างตัวกรอง</button></div>
 </header>
 
 <div class="browser">
+  <section class="col"><h2>มหาวิทยาลัย</h2><div class="list" id="uni"></div></section>
   <section class="col"><h2>คณะ (กลุ่มสาขา)</h2><div class="list" id="group"></div></section>
   <section class="col"><h2>สาขา</h2><div class="list" id="field"></div></section>
   <section class="col"><h2>หลักสูตร</h2><div class="list" id="name"></div></section>
 </div>
 
 <main>
-  <section class="col"><h2>มหาวิทยาลัย</h2><div class="list" id="uni"></div></section>
-  <div>
-    <h2 id="examTitle">รายการที่มีโอกาสต้องสอบ</h2>
-    <p class="note" id="examNote"></p>
-    <div id="exams"></div>
-  </div>
+  <h2 id="examTitle">รายการที่มีโอกาสต้องสอบ</h2>
+  <p class="note" id="examNote"></p>
+  <div id="exams"></div>
 </main>
 
 <script>
-// แบบ A: คอลัมน์ คณะ → สาขา → หลักสูตร (ชื่อ, รวมข้ามมหาวิทยาลัย) แล้วเลือกมหาวิทยาลัยด้านล่าง
-const KEYS = ["group", "field", "name", "uni"];
+// คอลัมน์ มหาวิทยาลัย | คณะ | สาขา | หลักสูตร (ชื่อ, รวมข้ามมหาวิทยาลัย) — กรองกันได้ทุกทิศ เลือกคอลัมน์ไหนก่อนก็ได้
+const KEYS = ["uni", "group", "field", "name"];
 const sel = { group: null, field: null, name: null, uni: null };
 let D, fetchedAt;
 
@@ -98,17 +95,31 @@ const label = {
   uni: id => D.universities[id] || id,
 };
 
-// หลักสูตรที่ผ่านตัวกรองของ key ก่อนหน้า `upto` (ไม่รวม key นั้นเอง); ไม่ใส่ = ทุกตัวกรอง
-function filtered(upto) {
-  const keys = upto ? KEYS.slice(0, KEYS.indexOf(upto)) : KEYS;
-  return D.programs.filter(p => keys.every(k => sel[k] === null || p[k] === sel[k]));
+// คณะ ⊃ สาขา ⊃ หลักสูตร: คอลัมน์แม่ไม่ถูกกรองด้วยลูก ไม่งั้นเลือกสาขาแล้วจะเปลี่ยนไปคณะอื่นไม่ได้
+const BELOW = { group: ["field", "name"], field: ["name"] };
+
+// หลักสูตรที่ผ่านทุกตัวกรอง ยกเว้นของคอลัมน์ `except` และคอลัมน์ลูกของมัน (ไม่ใส่ = ทุกตัวกรอง)
+function filtered(except) {
+  const skip = [except, ...(BELOW[except] || [])];
+  return D.programs.filter(p => KEYS.every(k => skip.includes(k) || sel[k] === null || p[k] === sel[k]));
+}
+
+// ตัวที่เพิ่งคลิกอยู่เสมอ ตัวเลือกเดิมคืนกลับเฉพาะที่ยังมีหลักสูตรเข้ากัน (เช็กตามลำดับ KEYS)
+function select(key, id) {
+  const old = { ...sel };
+  KEYS.forEach(k => sel[k] = null);
+  sel[key] = id;
+  for (const k of KEYS) if (k !== key && old[k] !== null) {
+    sel[k] = old[k];
+    if (!filtered().length) sel[k] = null;
+  }
 }
 
 function renderList(key) {
   const count = {};
   for (const p of filtered(key)) count[p[key]] = (count[p[key]] || 0) + 1;
   const items = Object.entries(count).map(([id, n]) => ({ id, n, name: label[key](id) }))
-    .sort(key === "uni" ? (a, b) => b.n - a.n || th(a.name, b.name) : (a, b) => th(a.name, b.name));
+    .sort((a, b) => th(a.name, b.name));
   const btn = (id, html, cls = "") =>
     `<button class="item ${cls}" data-key="${key}" data-id="${esc(id ?? "")}" aria-pressed="${sel[key] === id}">${html}</button>`;
   document.getElementById(key).innerHTML =
@@ -161,9 +172,10 @@ function renderExams() {
     (progs.length === 1 ? `<p class="note">ดูรายละเอียดที่ <a href="https://course.mytcas.com/programs/${progs[0].id}" target="_blank" rel="noopener">course.mytcas.com</a></p>` : "");
 }
 
-function render(from = "group") {
-  KEYS.slice(KEYS.indexOf(from)).forEach(renderList);
+function render() {
+  KEYS.forEach(renderList);
   renderExams();
+  document.getElementById("reset").hidden = KEYS.every(k => sel[k] === null);
 }
 
 function esc(s) {
@@ -174,10 +186,14 @@ document.addEventListener("click", e => {
   const b = e.target.closest(".item");
   if (!b) return;
   const key = b.dataset.key;
-  sel[key] = b.dataset.id || null;
-  KEYS.slice(KEYS.indexOf(key) + 1).forEach(k => sel[k] = null); // เปลี่ยนตัวบน = ล้างตัวล่าง
-  render(key);
+  select(key, b.dataset.id || null);
+  render();
   document.querySelector(`#${key} [aria-pressed="true"]`)?.focus();
+});
+
+document.getElementById("reset").addEventListener("click", () => {
+  KEYS.forEach(k => sel[k] = null);
+  render();
 });
 
 fetch("../data/browse.json").then(r => r.json()).then(j => {
