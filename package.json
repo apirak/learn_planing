@@ -1,0 +1,22 @@
+{
+  "name": "tcas-course-planner",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=23.6"
+  },
+  "scripts": {
+    "scrape": "node src/main.ts",
+    "browse": "node src/main.ts browse",
+    "test": "node --test \"test/**/*.test.ts\"",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "cheerio": "1.2.0",
+    "domhandler": "5.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "typescript": "7.0.2"
+  }
+}
