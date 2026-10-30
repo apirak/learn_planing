@@ -6,6 +6,7 @@
     "node": ">=23.6"
   },
   "scripts": {
+    "dev": "http-server . -p 8765 -a 127.0.0.1 -c-1 -o /ui/",
     "scrape": "node src/main.ts",
     "browse": "node src/main.ts browse",
     "test": "node --test \"test/**/*.test.ts\"",
@@ -17,6 +18,7 @@
   },
   "devDependencies": {
     "@types/node": "26.6.6",
+    "http-server": "^14.1.1",
     "typescript": "7.0.2"
   }
 }
