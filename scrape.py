@@ -77,13 +77,13 @@ def scrape_universities(rounds):
     for u in data:
         u["rounds_with_data"] = sorted(by_uni.get(u["university_id"], ()))
     save("universities.json", f"{S3}/universities.json", data)
+    return data
 
 
 def scrape_programs():
     data = fetch_json(f"{S3}/courses.json")
     save("programs.json", f"{S3}/courses.json", data)
-    # 1 แถวต่อวิชาเอก (major_name_th) — program_id จึงซ้ำได้
-    return list(dict.fromkeys(p["program_id"] for p in data))
+    return data
 
 
 def fetch_rounds(program_id):
@@ -156,6 +156,52 @@ def build_program_exams(rounds, score_keys):
             "min_scores": min_scores,  # key อาจลงท้าย _tscore (คะแนน T)
         })
     save("program_exams.json", "admission_rounds.json + score_keys.json", data)
+    return data
+
+
+NOT_EXAM = ("gpa", "portfolio", "interview", "priority_score")  # เกณฑ์ที่ไม่ใช่การสอบ
+
+
+def build_browse(programs, program_exams, score_keys, universities):
+    """ไฟล์เล็กไฟล์เดียวสำหรับ ui/ — 1 แถวต่อหลักสูตร + วิชาที่มีโอกาสต้องสอบ (อยู่ใน components หรือ min_scores)"""
+    keymap = {k["key"]: k for k in score_keys}
+
+    def subjects(key):
+        key = re.sub(r"_(tscore|pr)$", "", key)  # a_lv_82_tscore -> a_lv_82
+        if key.startswith(NOT_EXAM):
+            return []
+        return (keymap.get(key) or {}).get("exam_subjects") or [key]  # tgat -> tgat1/2/3; tpat1 -> tpat1
+
+    exams = {}  # program_id -> {subject: น้ำหนักสูงสุดในทุกรอบ (0 = ใช้แค่คะแนนขั้นต่ำ)}
+    for e in program_exams:
+        ex = exams.setdefault(e["program_id"], {})
+        for c in e["components"]:
+            keys = [c["key"]] if c["key"] else [k for opt in c["choose_one_of"] for k in opt]
+            for s in (s for k in keys for s in subjects(k)):
+                ex[s] = max(ex.get(s, 0), c["weight"])
+        for s in (s for k in e["min_scores"] for s in subjects(k)):
+            ex.setdefault(s, 0)
+
+    rows = {}
+    for p in programs:  # programs.json มี 1 แถวต่อวิชาเอก — เก็บแถวแรกของแต่ละ program_id
+        rows.setdefault(p["program_id"], {
+            "id": p["program_id"],
+            "name": p["program_name_th"],
+            "type": p["program_type_name_th"],
+            "uni": p["university_id"],
+            "group": p["group_field_id"],
+            "field": f'{p["group_field_id"]}-{p["field_id"]}',
+            "exams": exams.get(p["program_id"], {}),
+        })
+    used = {s for r in rows.values() for s in r["exams"]}
+    data = {
+        "groups": {p["group_field_id"]: p["group_field_th"] for p in programs},
+        "fields": {f'{p["group_field_id"]}-{p["field_id"]}': p["field_name_th"] for p in programs},
+        "universities": {u["university_id"]: u["university_name"] for u in universities},
+        "subjects": {s: (keymap.get(s) or {}).get("label", s) for s in sorted(used)},
+        "programs": list(rows.values()),
+    }
+    save("browse.json", "programs.json + program_exams.json + score_keys.json", data)
 
 
 # --- mytcas.com/blueprint ---------------------------------------------------
@@ -273,13 +319,15 @@ def main():
     assert all(s["sections"] and s["total_questions"] and s["full_score"] for s in subjects), \
         [s["slug"] for s in subjects if not (s["sections"] and s["total_questions"] and s["full_score"])]
 
-    program_ids = scrape_programs()
-    rounds = scrape_rounds(program_ids)
-    scrape_universities(rounds)
+    programs = scrape_programs()
+    # 1 แถวต่อวิชาเอก (major_name_th) — program_id จึงซ้ำได้
+    rounds = scrape_rounds(list(dict.fromkeys(p["program_id"] for p in programs)))
+    universities = scrape_universities(rounds)
     score_keys = scrape_score_keys(subjects)
     tgat = next(k for k in score_keys if k["key"] == "tgat")
     assert tgat["exam_subjects"] == ["tgat1", "tgat2", "tgat3"], tgat
-    build_program_exams(rounds, score_keys)
+    program_exams = build_program_exams(rounds, score_keys)
+    build_browse(programs, program_exams, score_keys, universities)
 
 
 if __name__ == "__main__":
