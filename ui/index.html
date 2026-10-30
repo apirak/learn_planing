@@ -149,9 +149,10 @@ function renderExams() {
   const rows = Object.entries(stat).sort((a, b) => b[1].n - a[1].n || th(a[0], b[0]));
   document.getElementById("examNote").textContent =
     `จาก ${progs.length.toLocaleString()} หลักสูตร · วิชาที่อยู่ในสัดส่วนคะแนนหรือคะแนนขั้นต่ำ ของรอบใดรอบหนึ่ง (ยังไม่มีข้อมูลรอบ 4)` +
-    (none ? ` · ${none.toLocaleString()} หลักสูตรไม่ใช้คะแนนสอบ (ใช้ portfolio / เกรด)` : "");
+    (none ? ` · ${none.toLocaleString()} หลักสูตรยังไม่มีข้อมูลคะแนนสอบ (รับแค่ portfolio / เกรด หรือรอบที่ใช้คะแนนยังไม่ประกาศ เช่น กสพท)` : "");
   const out = document.getElementById("exams");
-  if (!rows.length) { out.innerHTML = `<div class="empty">ไม่มีวิชาที่ต้องสอบในหลักสูตรที่เลือก</div>`; return; }
+  const link = progs.length === 1 ? `<p class="note">ดูรายละเอียดที่ <a href="https://course.mytcas.com/programs/${progs[0].id}" target="_blank" rel="noopener">course.mytcas.com</a></p>` : "";
+  if (!rows.length) { out.innerHTML = `<div class="empty">ยังไม่มีข้อมูลคะแนนสอบของหลักสูตรที่เลือก — อาจรับแค่ portfolio / เกรด หรือ mytcas ยังไม่ประกาศรอบที่ใช้คะแนน (เช่น รอบ 3 กสพท ของแพทย์)</div>` + link; return; }
   const range = ws => {
     if (!ws.length) return "ขั้นต่ำ";
     const lo = Math.min(...ws), hi = Math.max(...ws);
@@ -168,8 +169,7 @@ function renderExams() {
         <td>${pct >= 95 ? '<span class="tag must">ต้องสอบ</span>' : pct >= 50 ? '<span class="tag often">ส่วนใหญ่</span>' : '<span class="tag">บางที่</span>'}</td>
         <td class="num">${range(st.ws)}</td>
       </tr>`;
-    }).join("")}</tbody></table>` +
-    (progs.length === 1 ? `<p class="note">ดูรายละเอียดที่ <a href="https://course.mytcas.com/programs/${progs[0].id}" target="_blank" rel="noopener">course.mytcas.com</a></p>` : "");
+    }).join("")}</tbody></table>` + link;
 }
 
 function render() {
