@@ -1,5 +1,5 @@
 // รวมรอบรับ + พจนานุกรม score key → ต่อรอบรับ: วิชาที่ใช้ + สัดส่วน + คะแนนขั้นต่ำ (program_exams.json)
-import type { AdmissionRound, ProgramExam, ScoreComponent, ScoreKey } from "../shared/types.ts";
+import type { AdmissionRound, MinScoreGroup, ProgramExam, ScoreComponent, ScoreKey } from "../shared/types.ts";
 
 /** scores ของ mytcas → รายการองค์ประกอบคะแนน */
 export function scoreComponents(scores: AdmissionRound["scores"]): ScoreComponent[] {
@@ -23,13 +23,24 @@ export function minScores(conditions: AdmissionRound["score_conditions"]): Recor
     .map(([k, v]) => [k.slice(4), v as number]));
 }
 
+/** score_condition + subject_names + score_minimum → กลุ่มวิชาที่มีขั้นต่ำร่วมกัน */
+export function minScoreGroup(conditions: AdmissionRound["score_conditions"]): MinScoreGroup | null {
+  const rule = { 1: "any", 2: "sum" }[Number(conditions?.score_condition)] as MinScoreGroup["rule"] | undefined;
+  if (!rule) return null;
+  const keys = String(conditions!.subject_names ?? "").trim().split(/\s+/).filter(Boolean).map(k => k.replace(/^min_/, ""));
+  return keys.length ? { rule, keys, minimum: String(conditions!.score_minimum ?? "").trim() } : null;
+}
+
+const isGrade = (k: string) => /^(credit_)?gpa/.test(k);
+
 export function buildProgramExams(rounds: AdmissionRound[], scoreKeys: ScoreKey[]): ProgramExam[] {
   const known = new Set(scoreKeys.map(k => k.key));
   const exams: ProgramExam[] = [];
   for (const r of rounds) {
     const components = scoreComponents(r.scores);
     const mins = minScores(r.score_conditions);
-    if (!components.length && Object.keys(mins).every(k => k.startsWith("gpa"))) {
+    const group = minScoreGroup(r.score_conditions);
+    if (!components.length && [...Object.keys(mins), ...(group?.keys ?? [])].every(isGrade)) {
       continue; // ไม่มีสัดส่วนคะแนน และมีแค่เกรดขั้นต่ำ (เช่น portfolio + GPAX) — ไม่ต้องสอบ
     }
     const unknown = components.filter(c => c.key !== null && !known.has(c.key));
@@ -44,6 +55,7 @@ export function buildProgramExams(rounds: AdmissionRound[], scoreKeys: ScoreKey[
       min_total_score: r.min_total_score ?? null,
       components,
       min_scores: mins,
+      min_score_group: group,
     });
   }
   return exams;

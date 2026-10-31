@@ -110,6 +110,7 @@
     font-size: var(--s3); line-height: 22px; font-weight: 600; }
   .must-list li .key { color: inherit; opacity: .85; font-weight: 400; margin-left: 6px; }
   .must-none { margin: 0; color: var(--muted); }
+  .either { margin: 12px 0 0; padding: 10px 14px; border-radius: var(--r-md); border: 1px solid var(--line); font-size: var(--s2); line-height: 20px; }
 
   .section h2 { font-size: var(--s4); line-height: 28px; font-weight: 600; margin: 0; }
   .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0 12px; padding: 0; list-style: none; font-size: var(--s1); line-height: 18px; color: var(--muted); }
@@ -135,6 +136,7 @@
   .notes li + li { margin-top: 6px; }
   .notes li::before { content: ""; position: absolute; left: 0; top: 7px; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
   .empty { margin: 0; font-size: var(--s3); line-height: 24px; color: var(--muted); }
+  .empty + .empty { margin-top: 8px; }
   a { color: var(--ink); font-weight: 500; text-underline-offset: 3px; }
   a .i { width: 14px; height: 14px; margin-left: 4px; vertical-align: -2px; }
   .ext { margin: 16px 0 0; }
@@ -265,6 +267,23 @@ function renderList(key) {
 }
 
 const MUST = 95, OFTEN = 50;
+const ROUND = { 1: "รอบ 1 (Portfolio)", 2: "รอบ 2 (Quota)", 3: "รอบ 3 (Admission)" };
+const ENGLISH = new Set(["ielts", "toefl_ibt", "toefl_itp", "toefl_cbt", "toefl_pbt", "toeic", "cutep", "cutep_spk", "kept", "kuept", "cefr",
+  "tuget", "cmuetegs", "mu_elt", "kmitl_tep", "psutep", "swu_set", "det"]);
+
+// กลุ่ม "ขั้นต่ำของวิชาใดวิชาหนึ่ง" → ข้อความ
+function eitherText(keys) {
+  const names = keys.map(k => D.short[k] || k).join(" / ");
+  return keys.every(k => ENGLISH.has(k)) ? `ต้องมีผลภาษาอังกฤษ (${names})` : `ต้องมีคะแนนขั้นต่ำวิชาใดวิชาหนึ่ง: ${names}`;
+}
+
+// หลักสูตรที่ไม่มีวิชาสอบ → ทำไม (ดูจากรอบที่มีใน mytcas)
+function noExamReason(p) {
+  if (!p.rounds.length) return "ยังไม่มีข้อมูลการรับสมัครใน mytcas";
+  if (p.rounds.includes(3) && !p.scored.includes(3)) return "รอบ 3 (Admission) ยังไม่ประกาศการคำนวณคะแนน";
+  const open = p.rounds.map(r => ROUND[r] || `รอบ ${r}`);
+  return `รับ${open.join(" และ")}${open.length === 1 ? " เท่านั้น" : ""} — ยังไม่มีรอบที่ใช้คะแนนสอบ`;
+}
 
 function renderExams() {
   const progs = filtered();
@@ -274,11 +293,14 @@ function renderExams() {
   document.getElementById("summary").textContent =
     `${progs.length.toLocaleString()} หลักสูตร · ${unis.toLocaleString()} มหาวิทยาลัย`;
 
-  const stat = {};
-  let none = 0;
+  const stat = {}, reasons = {}, either = {};
   for (const p of progs) {
     const ex = Object.entries(p.exams);
-    if (!ex.length) none++;
+    if (!ex.length) {
+      const why = Object.keys(p.others).length ? "ใช้เกรด / portfolio / สัมภาษณ์ แทนคะแนนสอบ" : noExamReason(p);
+      reasons[why] = (reasons[why] || 0) + 1;
+    }
+    for (const g of p.either) either[eitherText(g)] = (either[eitherText(g)] || 0) + 1;
     for (const [s, w] of ex) {
       const st = stat[s] ||= { n: 0, ws: [] };
       st.n++;
@@ -290,11 +312,16 @@ function renderExams() {
   const out = document.getElementById("exams");
   const link = progs.length === 1
     ? `<p class="ext">ดูเงื่อนไขเต็มของหลักสูตรนี้ที่ <a href="https://course.mytcas.com/programs/${progs[0].id}" target="_blank" rel="noopener">course.mytcas.com<svg class="i" aria-hidden="true"><use href="#i-external-link"/></svg></a></p>` : "";
+  const counted = obj => Object.entries(obj).sort((a, b) => b[1] - a[1]);
+  const eitherCount = progs.filter(p => p.either.length).length;
   const notes = [
     "นับวิชาที่อยู่ในสัดส่วนคะแนน หรือใช้เป็นคะแนนขั้นต่ำ ของรอบใดรอบหนึ่ง",
     "ยังไม่มีข้อมูลรอบ 4",
-    none ? `${none.toLocaleString()} หลักสูตรยังไม่มีข้อมูลคะแนนสอบ — รับด้วย portfolio / เกรด หรือรอบที่ใช้คะแนนยังไม่ประกาศ (เช่น กสพท)` : "",
+    ...counted(reasons).map(([why, n]) => `${n.toLocaleString()} หลักสูตรไม่มีวิชาสอบ: ${why}`),
+    progs.length > 1 && eitherCount ? `${eitherCount.toLocaleString()} หลักสูตรมีเงื่อนไขขั้นต่ำวิชาใดวิชาหนึ่ง เช่น ต้องมีผลภาษาอังกฤษ — เลือกหลักสูตรเพื่อดู` : "",
   ].filter(Boolean).map(t => `<li>${esc(t)}</li>`).join("");
+  // เงื่อนไข "วิชาใดวิชาหนึ่ง" แสดงในกรอบหลักเมื่อเลือกหลักสูตรเดียว
+  const eitherLines = progs.length === 1 ? Object.keys(either) : [];
 
   if (!rows.length) {
     // ไม่ต้องสอบ แต่ใช้เกณฑ์อื่น เช่น เกรดเฉลี่ย 100% — บอกน้ำหนัก (ช่วงในทุกหลักสูตรที่เลือก)
@@ -305,11 +332,14 @@ function renderExams() {
         const lo = Math.min(...ws), hi = Math.max(...ws);
         return `${esc(D.subjects[k] || k)} ${lo === hi ? lo : `${lo}–${hi}`}%`;
       });
-    if (used.length) {
-      out.innerHTML = `<div class="answer"><p class="empty">ใช้${used.join(" · ")}</p></div>${link}`;
-      return;
-    }
-    out.innerHTML = `<div class="answer"><p class="empty">ยังไม่มีข้อมูลคะแนนสอบของหลักสูตรที่เลือก อาจรับด้วย portfolio / เกรดอย่างเดียว หรือ mytcas ยังไม่ประกาศรอบที่ใช้คะแนน (เช่น รอบ 3 กสพท ของแพทย์)</p></div>${link}`;
+    const why = counted(reasons);
+    const lines = [
+      ...(used.length ? [`ใช้${used.join(" · ")}`]
+        : why.length === 1 ? [esc(why[0][0])]
+        : why.map(([w, n]) => `${n.toLocaleString()} หลักสูตร: ${esc(w)}`)),
+      ...Object.keys(either).map(esc),
+    ];
+    out.innerHTML = `<div class="answer">${lines.map(l => `<p class="empty">${l}</p>`).join("")}</div>${link}`;
     return;
   }
   const name = s => esc(D.subjects[s] || s);
@@ -327,6 +357,7 @@ function renderExams() {
       ${must.length
         ? `<ul class="must-list">${must.map(r => `<li>${name(r.s)}<span class="key">${esc(r.s)}</span></li>`).join("")}</ul>`
         : `<p class="must-none">ไม่มีวิชาที่เกือบทุกหลักสูตรใช้ — ดูตารางด้านล่าง หรือเลือกให้แคบลง</p>`}
+      ${eitherLines.map(t => `<p class="either">${esc(t)}</p>`).join("")}
     </section>
     <section class="section">
       <h2>วิชาที่ใช้ทั้งหมด</h2>
