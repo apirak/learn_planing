@@ -65,17 +65,29 @@
     background: var(--card); border: 1px solid var(--line); border-radius: var(--r-lg); }
   .col { display: flex; flex-direction: column; min-width: 0; min-height: 0; background: var(--tile);
     border: 1px solid var(--line); border-radius: var(--r-md); box-shadow: var(--shadow); overflow: hidden; }
-  .col-head { padding: 14px 14px 10px; }
-  .col h2 { display: flex; justify-content: space-between; align-items: baseline; gap: 8px;
-    font-size: var(--s3); font-weight: 600; line-height: 22px; margin: 0 0 10px; }
-  .col h2 .n { font-size: var(--s1); font-weight: 400; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .col-head { padding: 6px 6px 4px; }
+  /* ช่องค้นหาเป็นหัวคอลัมน์ด้วย: ว่าง = "ค้นหา ชื่อคอลัมน์ (จำนวน) 🔍", พิมพ์แล้ว = คำค้น (เจอ/ทั้งหมด) x
+     สูงและเยื้องเท่า .item ข้อความจึงตรงกับรายการด้านล่าง */
   .search-box { position: relative; }
-  .search-box .i { position: absolute; left: 11px; top: 10px; color: var(--muted); pointer-events: none; }
-  .search { width: 100%; height: 36px; padding: 0 12px 0 34px; border: 1px solid transparent; border-radius: var(--r-sm);
-    background: var(--card); font-size: var(--s2); }
-  .search::placeholder { color: var(--muted); }
+  .search { width: 100%; height: 35px; padding: 0 36px 0 7px; border: 1px solid transparent; border-radius: var(--r-sm);
+    background: var(--card); font-size: var(--s3); font-weight: 600; color: var(--ink); }
+  .search::-webkit-search-cancel-button { display: none; }
   .search:hover { border-color: var(--line); }
   .search:focus-visible { outline: 0; border-color: var(--ink); background: var(--tile); }
+  .search:not(:placeholder-shown) { padding-right: 92px; }
+  .search-box .ph, .search-box .tail { position: absolute; top: 0; bottom: 0; display: flex; align-items: center; gap: 6px;
+    white-space: nowrap; pointer-events: none; }
+  .search-box .ph { left: 8px; right: 36px; overflow: hidden; font-size: var(--s3); color: var(--muted); }
+  .search-box .ph b { font-weight: 600; color: var(--ink); overflow: hidden; text-overflow: ellipsis; }
+  .search-box .tail { right: 5px; gap: 2px; }
+  .search-box .tail > .i { margin: 0 4px; color: var(--muted); }
+  .search-box .n { font-size: var(--s1); color: var(--muted); font-variant-numeric: tabular-nums; flex: none; }
+  .search:not(:placeholder-shown) ~ .ph, .search:not(:placeholder-shown) ~ .tail > .i,
+  .search:placeholder-shown ~ .tail > :not(.i) { display: none; }
+  .clear { display: grid; place-items: center; width: 24px; height: 24px; border: 0; border-radius: 999px; background: none;
+    color: var(--muted); cursor: pointer; pointer-events: auto; }
+  .clear .i { width: 14px; height: 14px; }
+  .clear:hover { background: var(--hover); color: var(--ink); }
   .list { position: relative; height: 158px; overflow-y: auto; overscroll-behavior: contain; padding: 0 6px 6px;
     scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
   .item { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; width: 100%;
@@ -88,7 +100,9 @@
   .item.all { margin-bottom: 4px; }
   .nomatch { padding: 8px; color: var(--muted); font-size: var(--s1); }
 
-  /* ── คำตอบ ── */
+  /* ── คำตอบ: กรอบชั้นเดียวกับ .browser ── */
+  .result { padding: 16px 10px 10px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-lg); }
+  .result > h1, .result > .meta { padding-inline: 10px; }
   .result h1 { font-size: var(--s5); line-height: 34px; font-weight: 600; letter-spacing: -.01em; margin: 4px 0 0; text-wrap: balance; }
   .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin: 6px 0 0; color: var(--muted); font-variant-numeric: tabular-nums; }
   .textbtn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--tile); padding: 2px 12px 2px 10px; border-radius: 999px;
@@ -101,8 +115,8 @@
   .status .i { margin-top: 1px; color: var(--muted); }
   .status:has(#status:empty) { display: none; }
 
-  #exams { display: grid; grid-template-columns: minmax(260px, 1fr) minmax(0, 2.2fr); gap: var(--gut); margin-top: var(--gut); align-items: start; }
-  .answer, .section { background: var(--tile); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow); padding: 20px; }
+  #exams { display: grid; grid-template-columns: minmax(260px, 1fr) minmax(0, 2.2fr); gap: 10px; margin-top: 16px; align-items: start; }
+  .answer, .section { background: var(--tile); border: 1px solid var(--line); border-radius: var(--r-md); box-shadow: var(--shadow); padding: 20px; }
   .label { font-size: var(--s2); line-height: 20px; font-weight: 600; margin: 0 0 12px; }
   .label .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--signal); margin-right: 8px; vertical-align: 1px; }
   .must-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
@@ -155,6 +169,7 @@
     .theme button span { display: none; }
     .result h1 { font-size: var(--s4); line-height: 28px; }
     .browser { grid-template-columns: 1fr; padding: 6px; }
+    .result { padding: 12px 6px 6px; }
     .item { padding-block: 10px; }
     .list { height: 190px; }
     .answer, .section { padding: 16px; }
@@ -240,10 +255,9 @@ function buildColumns() {
   document.querySelectorAll(".col").forEach((col, i) => {
     const k = KEYS[i];
     col.innerHTML = `<div class="col-head">
-        <h2 id="h-${k}">${TITLE[k]}<span class="n" id="n-${k}"></span></h2>
-        <div class="search-box"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><input class="search" type="search" id="q-${k}" data-key="${k}" placeholder="ค้นหา${TITLE[k].replace(/ \(.*/, "")}" aria-label="ค้นหา${TITLE[k]}" autocomplete="off" spellcheck="false"></div>
+        <div class="search-box"><input class="search" type="search" id="q-${k}" data-key="${k}" placeholder=" " aria-label="ค้นหา${TITLE[k]}" autocomplete="off" spellcheck="false"><span class="ph" aria-hidden="true">ค้นหา <b>${TITLE[k]}</b><span class="n" id="n-${k}"></span></span><span class="tail"><span class="n" id="c-${k}" aria-live="polite"></span><button class="clear" type="button" data-key="${k}" aria-label="ล้างคำค้น${TITLE[k]}"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button><svg class="i" aria-hidden="true"><use href="#i-search"/></svg></span></div>
       </div>
-      <div class="list" id="${k}" role="group" aria-labelledby="h-${k}"></div>`;
+      <div class="list" id="${k}" role="group" aria-label="${TITLE[k]}"></div>`;
   });
 }
 
@@ -254,7 +268,8 @@ function renderList(key) {
   const all = Object.entries(count).map(([id, n]) => ({ id, n, name: label[key](id) }));
   const items = all.filter(i => !q || i.id === sel[key] || i.name.toLowerCase().includes(q) || i.id.toLowerCase().includes(q))
     .sort((a, b) => th(a.name, b.name));
-  document.getElementById(`n-${key}`).textContent = q ? `${items.length} / ${all.length}` : all.length.toLocaleString();
+  document.getElementById(`n-${key}`).textContent = `(${all.length.toLocaleString()})`;
+  document.getElementById(`c-${key}`).textContent = q ? `(${items.length.toLocaleString()}/${all.length.toLocaleString()})` : "";
   // roving tabindex: กด Tab เข้าคอลัมน์ได้จุดเดียว (ตัวที่เลือก) แล้วใช้ลูกศรเลื่อน
   const btn = (id, html, cls = "") => {
     const on = sel[key] === id;
@@ -402,6 +417,12 @@ function esc(s) {
 const status = msg => document.getElementById("status").textContent = msg;
 
 document.addEventListener("click", e => {
+  const x = e.target.closest(".clear");
+  if (x) {
+    const input = document.getElementById(`q-${x.dataset.key}`);
+    input.value = ""; query[x.dataset.key] = ""; renderList(x.dataset.key); input.focus();
+    return;
+  }
   const b = e.target.closest(".item");
   if (!b) return;
   const key = b.dataset.key;
