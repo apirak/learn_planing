@@ -92,7 +92,12 @@ export type ProgramExam = {
   components: ScoreComponent[];
   /** key → คะแนนขั้นต่ำ; key อาจลงท้าย _tscore (คะแนน T) */
   min_scores: Record<string, number>;
+  min_score_group: MinScoreGroup | null;
 };
+
+/** score_conditions.score_condition ของ mytcas: 1 = ขั้นต่ำของวิชาใดวิชาหนึ่ง (any), 2 = ขั้นต่ำของผลรวม (sum)
+ *  minimum เก็บเป็นข้อความตามที่เว็บแสดง — อาจเป็นเลขเดียว หรือเลขต่อวิชา เช่น "520 5.5 90" / "B1 35 4" */
+export type MinScoreGroup = { rule: "any" | "sum"; keys: string[]; minimum: string };
 
 /** วิชาที่มีน้ำหนัก หรือ key: null + choose_one_of = เลือกสอบ 1 ตัวเลือก แต่ละตัวเลือกคือผลรวมของหลายวิชา */
 export type ScoreComponent =
@@ -106,6 +111,8 @@ export type Browse = {
   universities: Record<string, string>;
   /** key ของวิชาสอบ และเกณฑ์อื่นใน others → ชื่อ */
   subjects: Record<string, string>;
+  /** key ใน either → ชื่อสั้น เช่น ielts → IELTS */
+  short: Record<string, string>;
   programs: BrowseProgram[];
 };
 
@@ -120,4 +127,10 @@ export type BrowseProgram = {
   exams: Record<string, number>;
   /** เกณฑ์ที่ไม่ใช่การสอบ (gpax, portfolio, interview, …) → น้ำหนัก % สูงสุดในทุกรอบ */
   others: Record<string, number>;
+  /** กลุ่ม score key ที่ต้องผ่านขั้นต่ำวิชาใดวิชาหนึ่ง เช่น [["ielts", "toefl_ibt", "toeic"]] */
+  either: string[][];
+  /** รอบที่มีใน mytcas */
+  rounds: number[];
+  /** รอบที่ประกาศสัดส่วนคะแนนแล้ว */
+  scored: number[];
 };

@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import type { AdmissionRound, ScoreKey } from "../../src/shared/types.ts";
-import { buildProgramExams, minScores, scoreComponents } from "../../src/build/program-exams.ts";
+import { buildProgramExams, minScoreGroup, minScores, scoreComponents } from "../../src/build/program-exams.ts";
 
 const key = (k: string): ScoreKey => ({ key: k, label: k, max_value: 100, short_label: k });
 const SCORE_KEYS = ["tgat", "tpat3", "a_lv_61", "a_lv_64", "a_lv_65", "gpax"].map(key);
@@ -31,16 +31,28 @@ test("min_scores keeps numeric min_* conditions and strips the min_ prefix", () 
   assert.deepEqual(minScores(undefined), {});
 });
 
+test("score_condition: 1 = any one subject, 2 = sum; min_ prefix stripped, minimum kept as text", () => {
+  assert.deepEqual(minScoreGroup({ score_condition: 1, subject_names: "min_ielts min_toeic ", score_minimum: "5.5 600" }),
+    { rule: "any", keys: ["ielts", "toeic"], minimum: "5.5 600" });
+  assert.deepEqual(minScoreGroup({ min_gpax: 3, score_condition: 2, subject_names: "min_a_lv_61 min_a_lv_64", score_minimum: "250" }),
+    { rule: "sum", keys: ["a_lv_61", "a_lv_64"], minimum: "250" });
+  assert.equal(minScoreGroup({ min_gpax: 3 }), null);
+  assert.equal(minScoreGroup({ score_condition: 1, subject_names: "" }), null);
+});
+
 test("skips rounds with no exams: no score weights and only GPA minimums", () => {
   const exams = buildProgramExams([
     round({ scores: {}, score_conditions: { min_gpax: 3 } }), // portfolio + GPAX → skipped
     round({ round: 1, scores: {}, score_conditions: { min_tgat: 40 } }), // has an exam minimum → kept
     round({ round: 2, scores: { tgat: 100 }, receive_student_number: 10 }),
+    round({ round: 1, score_conditions: { score_condition: 2, subject_names: "min_credit_gpa22 min_gpa23", score_minimum: "3" } }), // grades only → skipped
+    round({ round: 4, score_conditions: { score_condition: 1, subject_names: "min_ielts min_toeic", score_minimum: "5 500" } }), // English test → kept
   ], SCORE_KEYS);
-  assert.deepEqual(exams.map(e => e.round), [1, 2]);
+  assert.deepEqual(exams.map(e => e.round), [1, 2, 4]);
   assert.deepEqual(exams[1], {
     program_id: "P1", university_id: "001", round: 2, project_id: "x", project_name_th: null,
     receive_student_number: 10, min_total_score: null, components: [{ key: "tgat", weight: 100 }], min_scores: {},
+    min_score_group: null,
   });
 });
 

@@ -1,7 +1,7 @@
 // ดึงข้อมูล TCAS จาก mytcas แล้วรวมเป็น JSON ใน data/
 //
 //   npm run scrape   # ดาวน์โหลดทั้งหมด แล้วสร้างไฟล์รวม
-//   npm run browse   # สร้าง browse.json ใหม่จากไฟล์ใน data/ ไม่ดึงเว็บ
+//   npm run browse   # สร้าง program_exams.json + browse.json ใหม่จากไฟล์ใน data/ ไม่ดึงเว็บ
 //
 // src/download/  ดึงจากเว็บ (ไฟล์ดิบตามที่ mytcas ส่งมา)
 // src/parse/     แปลง HTML/JS ของเว็บเป็นข้อมูล (ใช้ใน download/)
@@ -18,9 +18,9 @@ import { downloadScoreKeys } from "./download/score-keys.ts";
 import { downloadUniversities, UNIVERSITIES_URL } from "./download/universities.ts";
 import { loadDataFile, saveDataFile } from "./shared/data-files.ts";
 import { BLUEPRINT } from "./shared/mytcas-urls.ts";
-import type { Program, ProgramExam, ScoreKey, University } from "./shared/types.ts";
+import type { AdmissionRound, Program, ScoreKey, University } from "./shared/types.ts";
 
-const BROWSE_SOURCE = "programs.json + program_exams.json + score_keys.json";
+const BROWSE_SOURCE = "programs.json + admission_rounds.json + program_exams.json + score_keys.json";
 
 async function scrapeAll() {
   const subjects = await downloadExamSubjects();
@@ -50,18 +50,23 @@ async function scrapeAll() {
   const programExams = buildProgramExams(rounds, scoreKeys);
   await saveDataFile("program_exams.json", "admission_rounds.json + score_keys.json", programExams);
 
-  const browse = buildBrowse(programs, programExams, scoreKeys, universities);
+  const browse = buildBrowse(programs, programExams, scoreKeys, universities, rounds);
   await saveDataFile("browse.json", BROWSE_SOURCE, browse, { count: browse.programs.length });
 }
 
-/** สร้าง browse.json ใหม่จากไฟล์ใน data/ โดยไม่ดึงเว็บ — fetched_at ใช้ของ programs.json */
+/** สร้าง program_exams.json + browse.json ใหม่จากไฟล์ใน data/ โดยไม่ดึงเว็บ — fetched_at ใช้ของไฟล์ต้นทาง */
 async function rebuildBrowse() {
   const programs = await loadDataFile<Program[]>("programs.json");
+  const rounds = await loadDataFile<AdmissionRound[]>("admission_rounds.json");
+  const scoreKeys = (await loadDataFile<ScoreKey[]>("score_keys.json")).data;
+  const programExams = buildProgramExams(rounds.data, scoreKeys);
+  await saveDataFile("program_exams.json", "admission_rounds.json + score_keys.json", programExams, { fetchedAt: rounds.fetched_at });
   const browse = buildBrowse(
     programs.data,
-    (await loadDataFile<ProgramExam[]>("program_exams.json")).data,
-    (await loadDataFile<ScoreKey[]>("score_keys.json")).data,
+    programExams,
+    scoreKeys,
     (await loadDataFile<University[]>("universities.json")).data,
+    rounds.data,
   );
   await saveDataFile("browse.json", BROWSE_SOURCE, browse, { count: browse.programs.length, fetchedAt: programs.fetched_at });
 }
